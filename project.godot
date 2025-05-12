@@ -13,3 +13,11 @@ config_version=5
 config/name="GWJ81"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/gdLinter/plugin.cfg", "res://addons/gwj_countdown/plugin.cfg", "res://addons/script-ide/plugin.cfg")
