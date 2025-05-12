@@ -14,10 +14,11 @@ enum GenerationCycleState {
 
 @export var debug_draw: bool = true
 @export var is_slowly_generating: bool
+@export var current_seed: int
 var rooms: Array[DungeonRoom] = []
-
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var start_idx = -1
 var _is_generating: bool
-var _current_seed: int  #TODO: Implementation
 
 var _center: Vector2 = Vector2(300, 300)
 var _init_radius: int = 100
@@ -33,13 +34,9 @@ var _triangulation: DelaunaryTriangulation = DelaunaryTriangulation.new()
 var _current_generation_state: GenerationCycleState
 
 
-func _init():
-	pass
-
-
 func _ready() -> void:
-	seed(1)
-	generate_dungeon()
+	rng = RandomNumberGenerator.new()
+	rng.seed = current_seed
 
 
 func _physics_process(_delta: float) -> void:
@@ -54,18 +51,18 @@ func _create_rooms_in_circle():
 
 
 func _create_room_in_circle():
-	var r = _init_radius * sqrt(randf_range(0.0, 1.0))  #TODO:RNGImplementation
-	var theta = randf_range(0.0, 1.0) * 2 * PI  #TODO:RNGImplementation
+	var r = _init_radius * sqrt(rng.randf_range(0.0, 1.0))
+	var theta = rng.randf_range(0.0, 1.0) * 2 * PI
 	var pos = Vector2i(floori(r * cos(theta)), floori(r * sin(theta)))
 	var size = Vector2i(
-		randi_range(int(_room_size_bounds.x), int(_room_size_bounds.y)),
-		randi_range(int(_room_size_bounds.x), int(_room_size_bounds.y))
+		rng.randi_range(int(_room_size_bounds.x), int(_room_size_bounds.y)),
+		rng.randi_range(int(_room_size_bounds.x), int(_room_size_bounds.y))
 	)
 	var room_color = Color.RED
 	rooms.push_back(DungeonRoom.new(Vector2i(_center) + pos, size, room_color))
 
 
-func _seperate_rooms() -> bool:  #TODO:Speed this up somhow (pereprocessing) Quadtree
+func _seperate_rooms() -> bool:
 	var max_speed = 3
 	var is_every_room_seperated = true
 
@@ -74,16 +71,11 @@ func _seperate_rooms() -> bool:  #TODO:Speed this up somhow (pereprocessing) Qua
 
 	for room in rooms:
 		if !quadtree.insert(QuadTreePoint.from_room(room)):
-			push_warning("Room:"+str(room.get_center())+" was not inserted")
-	var avg_querryed_data = 0
-	var start_time = Time.get_unix_time_from_system()
+			push_warning("Room:" + str(room.get_center()) + " was not inserted")
 	for room in rooms:
 		var seperation_direction: Vector2 = Vector2.ZERO
 		var querry = QuadTree.create_querry(room, self)
-		var querried_data: Array[QuadTreePoint] = quadtree.querry(
-			querry
-		)
-		avg_querryed_data += len(querried_data)
+		var querried_data: Array[QuadTreePoint] = quadtree.querry(querry)
 		for querryed_point in querried_data:
 			var other_room = querryed_point.meta_data
 
@@ -101,9 +93,6 @@ func _seperate_rooms() -> bool:  #TODO:Speed this up somhow (pereprocessing) Qua
 			seperation_direction += cur_direction
 
 		room.move(seperation_direction)
-	var end_time = Time.get_unix_time_from_system()
-	print("Total:",avg_querryed_data," Durchschnitt:",avg_querryed_data / len(rooms))
-	print("TotalTime:",end_time-start_time," DurchschnittTime:",(end_time-start_time) / len(rooms))
 	return is_every_room_seperated
 
 
@@ -281,7 +270,7 @@ func _create_corridors():
 
 
 func _choose_begin_and_end_room():
-	var start_idx = -1
+	start_idx = -1
 	var distance_from_start = 0
 	var end_idx = -1
 
@@ -381,9 +370,14 @@ func update():
 			_current_generation_state = GenerationCycleState.DONE
 
 
+func is_done():
+	return _current_generation_state == GenerationCycleState.DONE
+
+
 #region setter
-func set_seed():
-	pass
+func set_seed(new_seed: int):
+	rng = RandomNumberGenerator.new()
+	rng.seed = new_seed
 
 
 #endregion

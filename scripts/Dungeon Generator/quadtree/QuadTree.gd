@@ -18,14 +18,18 @@ static func get_boundary(rooms: Array[DungeonRoom]) -> Rect2:
 			rect = Rect2(room.get_center(), Vector2(0, 0))
 		else:
 			rect = rect.expand(room.get_center())
-	rect.size += Vector2(1,1)
+	rect.size += Vector2(1, 1)
 	return rect
 
 
 static func create_querry(room: DungeonRoom, generator: DungeonGenerator):
-	var max_room_size:float = generator._room_size_bounds.y
-	return Rect2(room.get_position()-Vector2(max_room_size,max_room_size),room.get_size()+Vector2(max_room_size,max_room_size)*2)
+	var max_room_size: float = generator._room_size_bounds.y
+	return Rect2(
+		room.get_position() - Vector2(max_room_size, max_room_size),
+		room.get_size() + Vector2(max_room_size, max_room_size) * 2
+	)
 	#return Rect2(room.get_position(),room.get_size())
+
 
 func _init(boundary: Rect2, capacity: int = 1):
 	_booundary = boundary
