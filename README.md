@@ -23,4 +23,6 @@ Fight enemy's
 Solve Puzzles
 Collet Abilitys
 Discover the Secret of the Spire
-
+### Optional:
+Sell Trasure outside
+Buy Items Outside

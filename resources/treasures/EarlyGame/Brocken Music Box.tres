@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Treasure" load_steps=2 format=3 uid="uid://wkddfqa7to3a"]
+
+[ext_resource type="Script" uid="uid://ejxiof5nsyeo" path="res://scripts/Collectable Resources/Treasure.gd" id="1_hve3s"]
+
+[resource]
+script = ExtResource("1_hve3s")
+id = "broken_music_box"
+game_play_time_stamp = 0
+item_amount = 1
+name = "Broken Music Box"
+discription = "Plays only if you humm a tune to it."
+price = 5
+generate_in_important_rooms = true
+metadata/_custom_type_script = "uid://ejxiof5nsyeo"

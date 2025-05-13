@@ -1,2 +1,4 @@
 class_name Item
-extends Resource
+extends Placeable
+
+@export var remove_each_day:bool

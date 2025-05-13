@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Treasure" load_steps=2 format=3 uid="uid://d16p3bru0su5r"]
+
+[ext_resource type="Script" uid="uid://ejxiof5nsyeo" path="res://scripts/Collectable Resources/Treasure.gd" id="1_by5hw"]
+
+[resource]
+script = ExtResource("1_by5hw")
+id = "bent Dungeon Key"
+game_play_time_stamp = 3
+item_amount = 10
+name = "Bent Dungeon Key"
+discription = "Got damm I could have used that.
+It think it no longer opens anything.
+Still kinda cool"
+price = 4
+generate_in_important_rooms = false
+metadata/_custom_type_script = "uid://ejxiof5nsyeo"

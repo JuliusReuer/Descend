@@ -1,14 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjuskxpwiqy6g"]
+[gd_scene load_steps=18 format=3 uid="uid://bjuskxpwiqy6g"]
 
 [ext_resource type="Script" uid="uid://vq7oo3q2ebbp" path="res://scripts/Dungeon Generator/DungeonGenerator.gd" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://bg26mqenifput" path="res://scripts/debug.gd" id="1_uu6xs"]
 [ext_resource type="Script" uid="uid://t3wifm7bmi8j" path="res://scripts/Dungeon/Dungeon.gd" id="2_cm0pq"]
 [ext_resource type="Script" uid="uid://jkfgyvsrxoxy" path="res://scripts/Dungeon/DungeonGeneratorList.gd" id="3_3dxm6"]
-[ext_resource type="Script" uid="uid://pslbysc7xcx1" path="res://scripts/Dungeon/solver/DungeonSolver.gd" id="3_r0du0"]
 [ext_resource type="Script" uid="uid://bufm6v3jqt5g2" path="res://scripts/Dungeon/layout puller/LayoutConstructor.gd" id="4_fos0i"]
 [ext_resource type="Script" uid="uid://b884d07tbda08" path="res://scripts/Dungeon/collectable generator/CollectableGenerator.gd" id="6_lgr22"]
 [ext_resource type="Script" uid="uid://b2qt8jgchbvs0" path="res://scripts/Collectable Resources/Ability.gd" id="7_03owx"]
-[ext_resource type="Resource" uid="uid://bnsyypm8rpbqe" path="res://resources/abilitys/dash.tres" id="8_wkp8b"]
+[ext_resource type="Resource" uid="uid://bnsyypm8rpbqe" path="res://resources/abilitys/Dash.tres" id="8_wkp8b"]
+[ext_resource type="Script" uid="uid://cs7ghvm3aqnpo" path="res://scripts/Collectable Resources/Item.gd" id="9_20pc6"]
+[ext_resource type="Resource" uid="uid://dai661t28bv57" path="res://resources/items/MagicMap.tres" id="10_5vvyt"]
+[ext_resource type="Script" uid="uid://dvkle5mcninea" path="res://scripts/Dungeon/Renderer/FloorRenderer.gd" id="11_20pc6"]
+[ext_resource type="Script" uid="uid://ejxiof5nsyeo" path="res://scripts/Collectable Resources/Treasure.gd" id="11_sc1dx"]
+[ext_resource type="Resource" uid="uid://ddw7en3vp7loa" path="res://resources/treasures/EarlyGame/Bent Spoon.tres" id="12_kjvhd"]
+[ext_resource type="Resource" uid="uid://cinhr3xen1o2o" path="res://resources/treasures/EarlyGame/CrackedGoblet.tres" id="13_5tuhn"]
+[ext_resource type="Resource" uid="uid://tcxpyh15qjbi" path="res://resources/treasures/EarlyGame/Empty Coin Poutch.tres" id="14_2gh4u"]
+[ext_resource type="Resource" uid="uid://caul567rylaym" path="res://resources/treasures/EarlyGame/Rusty Gear Cog.tres" id="15_devvj"]
+[ext_resource type="Resource" uid="uid://c6h3sn7quvqc" path="res://resources/treasures/EarlyGame/Worn Boot (Left).tres" id="16_3b0ty"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_uu6xs")
@@ -23,30 +31,25 @@ metadata/_custom_type_script = "uid://jkfgyvsrxoxy"
 
 [node name="DungeonGenerator" type="Node2D" parent="Dungeon/DungeonGeneratorList"]
 script = ExtResource("1_glv2v")
-is_slowly_generating = true
 metadata/_custom_type_script = "uid://vq7oo3q2ebbp"
 
 [node name="DungeonGenerator2" type="Node2D" parent="Dungeon/DungeonGeneratorList"]
 script = ExtResource("1_glv2v")
-is_slowly_generating = true
 current_seed = 1
 metadata/_custom_type_script = "uid://vq7oo3q2ebbp"
 
 [node name="DungeonGenerator3" type="Node2D" parent="Dungeon/DungeonGeneratorList"]
 script = ExtResource("1_glv2v")
-is_slowly_generating = true
 current_seed = 2
 metadata/_custom_type_script = "uid://vq7oo3q2ebbp"
 
 [node name="DungeonGenerator4" type="Node2D" parent="Dungeon/DungeonGeneratorList"]
 script = ExtResource("1_glv2v")
-is_slowly_generating = true
 current_seed = 3
 metadata/_custom_type_script = "uid://vq7oo3q2ebbp"
 
 [node name="DungeonGenerator5" type="Node2D" parent="Dungeon/DungeonGeneratorList"]
 script = ExtResource("1_glv2v")
-is_slowly_generating = true
 current_seed = 4
 metadata/_custom_type_script = "uid://vq7oo3q2ebbp"
 
@@ -57,8 +60,10 @@ metadata/_custom_type_script = "uid://bufm6v3jqt5g2"
 [node name="CollectableGenerator" type="Node2D" parent="Dungeon"]
 script = ExtResource("6_lgr22")
 abilitys = Array[ExtResource("7_03owx")]([ExtResource("8_wkp8b")])
+items = Array[ExtResource("9_20pc6")]([ExtResource("10_5vvyt")])
+treasures = Array[ExtResource("11_sc1dx")]([ExtResource("12_kjvhd"), ExtResource("13_5tuhn"), ExtResource("14_2gh4u"), ExtResource("15_devvj"), ExtResource("16_3b0ty")])
 metadata/_custom_type_script = "uid://b884d07tbda08"
 
-[node name="DungeonSolver" type="Node2D" parent="Dungeon"]
-script = ExtResource("3_r0du0")
-metadata/_custom_type_script = "uid://pslbysc7xcx1"
+[node name="FloorRenderer" type="Node2D" parent="Dungeon"]
+script = ExtResource("11_20pc6")
+metadata/_custom_type_script = "uid://dvkle5mcninea"

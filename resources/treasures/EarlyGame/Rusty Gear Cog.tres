@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Treasure" load_steps=2 format=3 uid="uid://caul567rylaym"]
+
+[ext_resource type="Script" uid="uid://ejxiof5nsyeo" path="res://scripts/Collectable Resources/Treasure.gd" id="1_tvcqa"]
+
+[resource]
+script = ExtResource("1_tvcqa")
+id = "rusty_gear_cog"
+game_play_time_stamp = 0
+item_amount = 0
+name = "Rusty Gear Cog"
+discription = "To worn to fit anything. Sitl kind of shiny."
+price = 5
+generate_in_important_rooms = true
+metadata/_custom_type_script = "uid://ejxiof5nsyeo"

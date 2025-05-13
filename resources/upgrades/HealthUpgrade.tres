@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://dpv6slsnv8crq"]
+
+[ext_resource type="Script" uid="uid://cl7una4abykvr" path="res://scripts/Collectable Resources/Upgrade.gd" id="1_x3cui"]
+
+[resource]
+script = ExtResource("1_x3cui")
+id = "health_upgrade"
+spread = 1
+game_play_time_stamp = 0
+item_amount = 17
+name = "Hart Stone"
+discription = "It would be a Shame if the stone was split into 4 pieces,
+and you had to collect 4 of them to get 1 HP."
+metadata/_custom_type_script = "uid://cl7una4abykvr"

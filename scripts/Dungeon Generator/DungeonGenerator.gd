@@ -12,8 +12,7 @@ enum GenerationCycleState {
 	DONE
 }
 
-@export var debug_draw: bool = true
-@export var is_slowly_generating: bool
+@export var is_slowly_generating: bool = true
 @export var current_seed: int
 var rooms: Array[DungeonRoom] = []
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -383,8 +382,6 @@ func set_seed(new_seed: int):
 
 #endregion
 func _draw():
-	if !debug_draw:
-		return
 	if _current_generation_state != GenerationCycleState.DONE:
 		for room in _debug_rooms:
 			room.draw(self, true)

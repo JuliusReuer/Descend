@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Treasure" load_steps=2 format=3 uid="uid://cjcncm6led851"]
+
+[ext_resource type="Script" uid="uid://ejxiof5nsyeo" path="res://scripts/Collectable Resources/Treasure.gd" id="1_4sfuc"]
+
+[resource]
+script = ExtResource("1_4sfuc")
+id = "gold_block"
+game_play_time_stamp = 2
+item_amount = 1
+name = "Block of Gold"
+discription = "It's a Block of Gold. What did you expect?
+Some People say it's 1m times 1m, 
+and can be crafted 9 gold ingots.
+You ask yourself what is crafting."
+price = 0
+metadata/_custom_type_script = "uid://ejxiof5nsyeo"

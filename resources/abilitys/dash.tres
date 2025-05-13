@@ -1,9 +1,16 @@
 [gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://bnsyypm8rpbqe"]
 
-[ext_resource type="Script" uid="uid://b2qt8jgchbvs0" path="res://scripts/Collectable Resources/Ability.gd" id="1_60qox"]
+[ext_resource type="Script" uid="uid://b2qt8jgchbvs0" path="res://scripts/Collectable Resources/Ability.gd" id="1_lq3wm"]
 
 [resource]
-script = ExtResource("1_60qox")
+script = ExtResource("1_lq3wm")
+gates = 5
+progress_enabled = false
+progress_progressable = Array[ExtResource("1_lq3wm")]([])
+name = "Dash"
+discription = "Lets you Dash"
 id = "dash"
-gates = 4
+spread = 2
+game_play_time_stamp = 0
+item_amount = 1
 metadata/_custom_type_script = "uid://b2qt8jgchbvs0"

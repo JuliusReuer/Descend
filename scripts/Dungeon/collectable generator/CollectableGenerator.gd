@@ -19,6 +19,7 @@ var item_spots: Array[String] = []
 
 var block_door: Array[String] = []
 var key_placements: Array[String] = []
+var item_placements:Dictionary[String,String] = {} #Item_id,Room
 var ability_placements: Dictionary[String,String] = {}  #Ability_id,Room
 var door_key_list: Dictionary[String,String] = {}  #Door,Key
 
@@ -98,16 +99,18 @@ func generate() -> void:
 		add_ability(ability)
 
 	for item in items:
-		pass  #simple random Place in Area with chance of important room
+		add_item(item)
 
 	for upgrade in upgrades:
-		pass  #simple random Place with chance of important room
+		add_upgrade(upgrade)
 
 	for spot in important_spots:
 		pass  # fill rest of important spots with random treasures
 
 	for treasure in treasures:
 		pass  # spread treasures trough out the dungeon
+	
+	finished.emit()
 
 
 func add_key(leaf: String):
@@ -149,3 +152,38 @@ func add_ability(ability: Ability):
 		block_door.append(gate)
 		door_key_list.set(gate, ability_node)
 	ability_placements.set(ability.id, ability_node)
+
+
+func add_item(item:Item):
+	var possible_ability_placing: Array[String] = layout.master_room_dict.duplicate().keys()
+	var game_stage_filter = func(node_name: String):
+		match item.game_play_time_stamp:
+			0:
+				return DungeonLayoutNode.get_floor(node_name) < mid_game_floor
+			1:
+				var cur_floor = DungeonLayoutNode.get_floor(node_name)
+				return cur_floor >= mid_game_floor and cur_floor < end_game_floor
+			2:
+				return DungeonLayoutNode.get_floor(node_name) >= end_game_floor
+	possible_ability_placing = possible_ability_placing.filter(game_stage_filter)
+	for node in block_door:
+		possible_ability_placing.erase(node)
+
+	var filter_important = important_spots.duplicate().filter(game_stage_filter)
+	
+	var item_node: String = ""
+	if len(filter_important) > 0 and rng.randi_range(0, max(item.spread, 0)) == 0:
+		#Place on important -> cant bee Door
+		item_node = filter_important[rng.randi_range(0, len(filter_important) - 1)]
+		important_spots.erase(item_node)
+	else:  #Place Random -> can be door so filter on block door + add to block Door
+		item_node = possible_ability_placing[rng.randi_range(
+			0, len(possible_ability_placing) - 1
+		)]
+		block_door.append(item_node)
+	
+	item_placements.set(item.id,item_node)
+
+
+func add_upgrade(upgrade:Upgrade):
+	pass
