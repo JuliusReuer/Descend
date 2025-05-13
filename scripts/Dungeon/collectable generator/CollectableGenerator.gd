@@ -6,7 +6,7 @@ extends DungeonPipeline
 @export var end_game_floor: int = 20
 
 @export var abilitys: Array[Ability]
-@export var items: Array[Item]
+@export var items: Array[CollectableItem]
 @export var upgrades: Array[Upgrade]
 @export var treasures: Array[Treasure]
 
@@ -19,7 +19,7 @@ var item_spots: Array[String] = []
 
 var block_door: Array[String] = []
 var key_placements: Array[String] = []
-var item_placements:Dictionary[String,String] = {} #Item_id,Room
+var item_placements: Dictionary[String,String] = {}  #Item_id,Room
 var ability_placements: Dictionary[String,String] = {}  #Ability_id,Room
 var door_key_list: Dictionary[String,String] = {}  #Door,Key
 
@@ -70,6 +70,36 @@ func generate_gate(key_node: String) -> String:
 	return possible_node_placing[rng.randi_range(0, len(possible_node_placing) - 1)]
 
 
+func generate_node_for_placeable(palceable: Placeable) -> String:
+	var possible_ability_placing: Array[String] = layout.master_room_dict.duplicate().keys()
+	var game_stage_filter = func(node_name: String):
+		match palceable.game_play_time_stamp:
+			0:
+				return DungeonLayoutNode.get_floor(node_name) < mid_game_floor
+			1:
+				var cur_floor = DungeonLayoutNode.get_floor(node_name)
+				return cur_floor >= mid_game_floor and cur_floor < end_game_floor
+			2:
+				return DungeonLayoutNode.get_floor(node_name) >= end_game_floor
+	possible_ability_placing = possible_ability_placing.filter(game_stage_filter)
+	for node in block_door:
+		possible_ability_placing.erase(node)
+
+	var filter_important = important_spots.duplicate().filter(game_stage_filter)
+
+	var placeable_node: String = ""  # redefine Spread
+	if len(filter_important) > 0 and rng.randi_range(0, max(palceable.spread, 0)) == 0:
+		#Place on important -> cant bee Door
+		placeable_node = filter_important[rng.randi_range(0, len(filter_important) - 1)]
+		important_spots.erase(placeable_node)
+	else:  #Place Random -> can be door so filter on block door + add to block Door
+		placeable_node = possible_ability_placing[rng.randi_range(
+			0, len(possible_ability_placing) - 1
+		)]
+		block_door.append(placeable_node)
+	return placeable_node
+
+
 #endregion
 
 
@@ -109,7 +139,7 @@ func generate() -> void:
 
 	for treasure in treasures:
 		pass  # spread treasures trough out the dungeon
-	
+
 	finished.emit()
 
 
@@ -120,70 +150,23 @@ func add_key(leaf: String):
 
 
 func add_ability(ability: Ability):
-	var possible_ability_placing: Array[String] = layout.master_room_dict.duplicate().keys()
-	var game_stage_filter = func(node_name: String):
-		match ability.game_play_time_stamp:
-			0:
-				return DungeonLayoutNode.get_floor(node_name) < mid_game_floor
-			1:
-				var cur_floor = DungeonLayoutNode.get_floor(node_name)
-				return cur_floor >= mid_game_floor and cur_floor < end_game_floor
-			2:
-				return DungeonLayoutNode.get_floor(node_name) >= end_game_floor
-	possible_ability_placing = possible_ability_placing.filter(game_stage_filter)
-	for node in block_door:
-		possible_ability_placing.erase(node)
+	for i in ability.amount:
+		var ability_node: String = generate_node_for_placeable(ability)
 
-	var filter_important = important_spots.duplicate().filter(game_stage_filter)
-
-	var ability_node: String = ""
-	if len(filter_important) > 0 and rng.randi_range(0, max(ability.spread, 0)) == 0:
-		#Place on important -> cant bee Door
-		ability_node = filter_important[rng.randi_range(0, len(filter_important) - 1)]
-		important_spots.erase(ability_node)
-	else:  #Place Random -> can be door so filter on block door + add to block Door
-		ability_node = possible_ability_placing[rng.randi_range(
-			0, len(possible_ability_placing) - 1
-		)]
-		block_door.append(ability_node)
-
-	for gate_id in ability.gates:
-		var gate = generate_gate(ability_node)
-		block_door.append(gate)
-		door_key_list.set(gate, ability_node)
-	ability_placements.set(ability.id, ability_node)
+		for gate_id in ability.gates:
+			var gate = generate_gate(ability_node)
+			block_door.append(gate)
+			door_key_list.set(gate, ability_node)
+		ability_placements.set(ability.id + ("#%d" % i) if i > 0 else "", ability_node)
 
 
-func add_item(item:Item):
-	var possible_ability_placing: Array[String] = layout.master_room_dict.duplicate().keys()
-	var game_stage_filter = func(node_name: String):
-		match item.game_play_time_stamp:
-			0:
-				return DungeonLayoutNode.get_floor(node_name) < mid_game_floor
-			1:
-				var cur_floor = DungeonLayoutNode.get_floor(node_name)
-				return cur_floor >= mid_game_floor and cur_floor < end_game_floor
-			2:
-				return DungeonLayoutNode.get_floor(node_name) >= end_game_floor
-	possible_ability_placing = possible_ability_placing.filter(game_stage_filter)
-	for node in block_door:
-		possible_ability_placing.erase(node)
+func add_item(item: CollectableItem):
+	for i in item.amount:
+		var item_node: String = generate_node_for_placeable(item)
 
-	var filter_important = important_spots.duplicate().filter(game_stage_filter)
-	
-	var item_node: String = ""
-	if len(filter_important) > 0 and rng.randi_range(0, max(item.spread, 0)) == 0:
-		#Place on important -> cant bee Door
-		item_node = filter_important[rng.randi_range(0, len(filter_important) - 1)]
-		important_spots.erase(item_node)
-	else:  #Place Random -> can be door so filter on block door + add to block Door
-		item_node = possible_ability_placing[rng.randi_range(
-			0, len(possible_ability_placing) - 1
-		)]
-		block_door.append(item_node)
-	
-	item_placements.set(item.id,item_node)
+		item_placements.set(item.id, item_node)
 
 
-func add_upgrade(upgrade:Upgrade):
-	pass
+func add_upgrade(upgrade: Upgrade):
+	for i in upgrade.amount:
+		var upgrade_node: String = generate_node_for_placeable(upgrade)

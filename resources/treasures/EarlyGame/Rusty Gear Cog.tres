@@ -4,11 +4,12 @@
 
 [resource]
 script = ExtResource("1_tvcqa")
-id = "rusty_gear_cog"
-game_play_time_stamp = 0
-item_amount = 0
-name = "Rusty Gear Cog"
-discription = "To worn to fit anything. Sitl kind of shiny."
 price = 5
 generate_in_important_rooms = true
+name = "Rusty Gear Cog"
+discription = "To worn to fit anything. Sitl kind of shiny."
+id = "rusty_gear_cog"
+spread = 0
+game_play_time_stamp = 1
+item_amount = 0
 metadata/_custom_type_script = "uid://ejxiof5nsyeo"

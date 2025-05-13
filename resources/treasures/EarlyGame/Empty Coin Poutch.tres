@@ -4,11 +4,12 @@
 
 [resource]
 script = ExtResource("1_mg86l")
-id = "empty_coin_pouch"
-game_play_time_stamp = 0
-item_amount = 1
-name = "Empty Coin Pouch"
-discription = "Irony not Includet."
 price = 1
 generate_in_important_rooms = false
+name = "Empty Coin Pouch"
+discription = "Irony not Includet."
+id = "empty_coin_pouch"
+spread = 0
+game_play_time_stamp = 1
+item_amount = 2
 metadata/_custom_type_script = "uid://ejxiof5nsyeo"

@@ -1,12 +1,5 @@
 class_name Treasure
 extends Placeable
 
-@export var id: String
-@export_group("Generation Stats")
-## Chance of placing this Ability in an Important spot: 1/spread (0 <= always)
-@export_enum("Early Game", "Midd Game", "End Game", "Any") var game_play_time_stamp: int
-@export var item_amount: int = 1
-
-@export_multiline var discription:String
-@export var price:int
-@export var generate_in_important_rooms:bool
+@export var price: int
+@export var generate_in_important_rooms: bool

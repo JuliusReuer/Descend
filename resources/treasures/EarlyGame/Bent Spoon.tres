@@ -4,11 +4,12 @@
 
 [resource]
 script = ExtResource("1_hbm8l")
-id = "bent_spoon"
-game_play_time_stamp = 0
-item_amount = 2
+price = 1
+generate_in_important_rooms = false
 name = "Bent Spoon"
 discription = "Not even good for soup"
-price = 0
-generate_in_important_rooms = false
+id = "bent_spoon"
+spread = 0
+game_play_time_stamp = 1
+item_amount = 2
 metadata/_custom_type_script = "uid://ejxiof5nsyeo"

@@ -4,13 +4,15 @@
 
 [resource]
 script = ExtResource("1_4sfuc")
-id = "gold_block"
-game_play_time_stamp = 2
-item_amount = 1
+price = 100
+generate_in_important_rooms = true
 name = "Block of Gold"
 discription = "It's a Block of Gold. What did you expect?
 Some People say it's 1m times 1m, 
 and can be crafted 9 gold ingots.
 You ask yourself what is crafting."
-price = 0
+id = "gold_block"
+spread = 0
+game_play_time_stamp = 4
+item_amount = 0
 metadata/_custom_type_script = "uid://ejxiof5nsyeo"

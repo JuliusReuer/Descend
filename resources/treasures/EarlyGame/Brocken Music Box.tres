@@ -4,11 +4,12 @@
 
 [resource]
 script = ExtResource("1_hve3s")
-id = "broken_music_box"
-game_play_time_stamp = 0
-item_amount = 1
-name = "Broken Music Box"
-discription = "Plays only if you humm a tune to it."
 price = 5
 generate_in_important_rooms = true
+name = "Broken Music Box"
+discription = "Plays only if you humm a tune to it."
+id = "broken_music_box"
+spread = 0
+game_play_time_stamp = 1
+item_amount = 0
 metadata/_custom_type_script = "uid://ejxiof5nsyeo"

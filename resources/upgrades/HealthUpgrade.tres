@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_x3cui")
-id = "health_upgrade"
-spread = 1
-game_play_time_stamp = 0
-item_amount = 17
 name = "Hart Stone"
 discription = "It would be a Shame if the stone was split into 4 pieces,
 and you had to collect 4 of them to get 1 HP."
+id = "health_upgrade"
+spread = 1
+game_play_time_stamp = 7
+item_amount = 17
 metadata/_custom_type_script = "uid://cl7una4abykvr"

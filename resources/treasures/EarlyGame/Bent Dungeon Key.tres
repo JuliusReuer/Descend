@@ -4,13 +4,14 @@
 
 [resource]
 script = ExtResource("1_by5hw")
-id = "bent Dungeon Key"
-game_play_time_stamp = 3
-item_amount = 10
+price = 4
+generate_in_important_rooms = false
 name = "Bent Dungeon Key"
 discription = "Got damm I could have used that.
 It think it no longer opens anything.
 Still kinda cool"
-price = 4
-generate_in_important_rooms = false
+id = "bent_dungeon_key"
+spread = 0
+game_play_time_stamp = 7
+item_amount = 10
 metadata/_custom_type_script = "uid://ejxiof5nsyeo"
