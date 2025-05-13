@@ -2,9 +2,13 @@ class_name DungeonLayout
 
 var master_room_dict: Dictionary[String,DungeonLayoutNode] = {}
 var start_node: String
+
 var pending_connections: Dictionary[String,String] = {}  # to,from
 
 var dead_end: Array[String]
+
+var to_start_map: Dictionary[String,String] = {}
+var to_finish_map: Dictionary[String,String] = {}
 
 
 func add(dungeon_floor: DungeonGenerator, floor_id: int, room_id: int):

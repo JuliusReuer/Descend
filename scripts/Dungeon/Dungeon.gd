@@ -3,13 +3,17 @@ extends Node2D
 
 signal finished
 
+@export var dungeon_seed:int
+var rng:RandomNumberGenerator = RandomNumberGenerator.new()
+
 var layout: DungeonLayout
 
 var pipeline: Array[DungeonPipeline]
 var pipeline_idx: int = 0
 
-
 func _ready() -> void:
+	rng.seed = dungeon_seed
+	
 	for node in get_children():
 		if node is DungeonPipeline:
 			pipeline.append(node)

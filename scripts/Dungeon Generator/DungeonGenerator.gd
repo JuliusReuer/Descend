@@ -376,6 +376,7 @@ func is_done():
 
 #region setter
 func set_seed(new_seed: int):
+	current_seed = new_seed
 	rng = RandomNumberGenerator.new()
 	rng.seed = new_seed
 
