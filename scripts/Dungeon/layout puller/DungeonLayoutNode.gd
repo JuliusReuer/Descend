@@ -17,14 +17,18 @@ func add_connection(connection: int, dungeon_floor: int = -1):
 func _to_string() -> String:
 	return "Dungeonroom<" + uuid + ">"
 
-static func get_data(id:String)->Vector2i:
+
+static func get_data(id: String) -> Vector2i:
 	var reg = RegEx.create_from_string("floor_(\\d*)_room_(\\d*)")
 	var m = reg.search(id)
 	if m:
-		return Vector2i(int(m.get_string(1)),int(m.get_string(2)))
+		return Vector2i(int(m.get_string(1)), int(m.get_string(2)))
 	return Vector2i.ZERO
 
-static func get_floor(id:String)->int:
+
+static func get_floor(id: String) -> int:
 	return get_data(id).x
-static func get_room(id:String)->int:
+
+
+static func get_room(id: String) -> int:
 	return get_data(id).y

@@ -7,13 +7,15 @@ var current_generator: int = 0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _is_running = false
 
+
 func _ready() -> void:
 	rng.seed = generation_seed
 	for node in get_children():
 		if node is DungeonGenerator:
 			floors.append(node)
 
-func start(dungeon:Dungeon):
+
+func start(dungeon: Dungeon):
 	generation_seed = dungeon.rng.randi()
 	rng.seed = generation_seed
 	for dungeon_floor in floors:
