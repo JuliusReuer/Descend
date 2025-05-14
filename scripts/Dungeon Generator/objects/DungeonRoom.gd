@@ -42,6 +42,20 @@ func draw(renderer: Node2D, debug_render: bool = false):
 	renderer.draw_rect(Rect2i(_position, _size), draw_color, false, 1)
 
 
+func draw_id(renderer: DungeonGenerator, debug_render: bool = false):
+	var draw_color = Color.GRAY if debug_render else _color
+	var id = renderer.rooms.find(self)
+	renderer.draw_string(
+		ThemeDB.fallback_font,
+		_position + Vector2(0, _size.y / 2),
+		str(id),
+		HORIZONTAL_ALIGNMENT_CENTER,
+		_size.x,
+		16,
+		draw_color
+	)
+
+
 func is_overlapping(other: DungeonRoom):
 	return (
 		_position.x < other._position.x + other._size.x

@@ -11,7 +11,9 @@ enum GamePlayTimeStamp {
 @export_category("Placable Data")
 @export var id: String
 @export_group("Generation Stats")
-## Chance of placing this Ability in an Important spot: 1/spread (0 <= always)
-@export var spread: int
+## Chance of placing this Object in an Important Spot:[br]
+## 0% -> Other[br]
+## 100% -> Important
+@export_range(0, 100, 1, "suffix:%") var spread: float
 @export var game_play_time_stamp: GamePlayTimeStamp = GamePlayTimeStamp.EARLY
 @export var amount: int = 1

@@ -14,6 +14,8 @@ enum GenerationCycleState {
 
 @export var is_slowly_generating: bool = true
 @export var current_seed: int
+@export_group("Debug", "debug_")
+@export var debug_render_ids: bool
 var rooms: Array[DungeonRoom] = []
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var start_idx = -1
@@ -387,6 +389,8 @@ func _draw():
 			room.draw(self, true)
 	for room in rooms:
 		room.draw(self)
+		if debug_render_ids:
+			room.draw_id(self)
 	match _current_generation_state:
 		GenerationCycleState.CIRCLE:
 			draw_circle(_center, _init_radius, Color.RED, false, 2)

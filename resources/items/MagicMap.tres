@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://dai661t28bv57"]
+[gd_resource type="Resource" script_class="CollectableItem" load_steps=2 format=3 uid="uid://dai661t28bv57"]
 
 [ext_resource type="Script" uid="uid://cs7ghvm3aqnpo" path="res://scripts/Collectable Resources/CollectableItem.gd" id="1_2gxxh"]
 
 [resource]
 script = ExtResource("1_2gxxh")
 remove_each_day = true
+rarity = 2
 name = "Magic Map"
 discription = "A Magical Map that dispalys the Dungeon Layout of the Current Day. So Tommorow it's useless"
 id = "magic_map"
-spread = 2
-game_play_time_stamp = 0
-item_amount = 1
+spread = 33.0
+game_play_time_stamp = 1
+amount = 1
 metadata/_custom_type_script = "uid://cs7ghvm3aqnpo"
