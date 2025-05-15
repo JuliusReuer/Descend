@@ -8,5 +8,5 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position.y += Input.get_axis("ui_up","ui_down") * 20
-	position.x += Input.get_axis("ui_left","ui_right") * 20
+	position.y += Input.get_axis("up","down") * 20
+	position.x += Input.get_axis("left","right") * 20

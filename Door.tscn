@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://deemxnrt76muf"]
+
+[ext_resource type="Texture2D" uid="uid://dpfq80qter67l" path="res://assets/textures/Doors.png" id="1_1vvux"]
+[ext_resource type="Script" uid="uid://ct2vtn01b3owr" path="res://door.gd" id="1_iu8q0"]
+
+[node name="Door" type="Node2D"]
+modulate = Color(1, 1, 1, 0.87451)
+texture_filter = 1
+script = ExtResource("1_iu8q0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(24, 0)
+rotation = -1.5708
+texture = ExtResource("1_1vvux")
+hframes = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-24, 0)
+rotation = 1.5708
+texture = ExtResource("1_1vvux")
+hframes = 2

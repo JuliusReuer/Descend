@@ -32,3 +32,7 @@ static func get_floor(id: String) -> int:
 
 static func get_room(id: String) -> int:
 	return get_data(id).y
+
+
+static func is_floor(id: String, floor: int) -> bool:
+	return id.begins_with("floor_%d" % floor)

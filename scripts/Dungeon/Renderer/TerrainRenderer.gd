@@ -27,11 +27,15 @@ func _add_cell(pos: Vector2i):
 	_used_cells.set(pos, true)
 
 
+func define(terrain: Vector2i):
+	terrain_render[terrain] = PositionList.new()
+	terrain_render[terrain].terrain = terrain
+	terrain_render[terrain].list = []
+
+
 func add_terrain(pos: Vector2i, terrain: Vector2i):
 	if !terrain_render.has(terrain):
-		terrain_render[terrain] = PositionList.new()
-		terrain_render[terrain].terrain = terrain
-		terrain_render[terrain].list = []
+		define(terrain)
 	terrain_render[terrain].list.append(pos)
 	#_add_cell(pos)
 

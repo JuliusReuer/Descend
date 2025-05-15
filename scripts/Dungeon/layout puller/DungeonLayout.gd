@@ -10,6 +10,8 @@ var dead_end: Array[String]
 var to_start_map: Dictionary[String,String] = {}
 var to_finish_map: Dictionary[String,String] = {}
 
+var floor_entrys: Dictionary[int,String] = {}
+
 
 func add(dungeon_floor: DungeonGenerator, floor_id: int, room_id: int):
 	var new_node = DungeonLayoutNode.new()
@@ -31,6 +33,9 @@ func add(dungeon_floor: DungeonGenerator, floor_id: int, room_id: int):
 			)
 		else:
 			pending_connections.set(DungeonLayoutNode.ID_STR % [floor_id + 1, 0], new_node.uuid)
+
+	if room._room_type == DungeonRoom.DungeonRoomType.START:
+		floor_entrys.set(floor_id, new_node.uuid)
 
 	for pending in pending_connections:
 		if pending == new_node.uuid:

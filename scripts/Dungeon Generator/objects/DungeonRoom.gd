@@ -2,8 +2,6 @@ class_name DungeonRoom
 
 enum DungeonRoomType {
 	ROOM,
-	KEY_ROOM,
-	LOCKED_ROOM,
 	START,
 	END,
 }

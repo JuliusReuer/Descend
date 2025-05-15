@@ -13,11 +13,12 @@ extends DungeonPipeline
 var layout: DungeonLayout
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
+#region Helper Data
 var important_spots: Array[String] = []  # Treasure / Upgrades / Abilities
 var ability_check: Dictionary[String,String] = {}
 var item_spots: Array[String] = []
-
 var block_door: Array[String] = []
+#endregion
 
 #region Resulting Lists
 var door_key_list: Dictionary[String,String] = {}  #Door,Key
@@ -127,12 +128,20 @@ func start(dungeon: Dungeon) -> void:
 	layout = dungeon.layout
 	rng.seed = dungeon.rng.randi()
 	generate()
+	dungeon.data = DungeonData.new()
+	dungeon.data.door_key_list = door_key_list
+	dungeon.data.key_placements = key_placements
+	dungeon.data.ability_placements = ability_placements
+	dungeon.data.item_placements = item_placements
+	dungeon.data.upgrade_placements = upgrade_placements
+	dungeon.data.treasure_placements = treasure_placements
+	finished.emit()
 
 
 func generate() -> void:
 	for leaf in layout.dead_end:
 		var branch = get_branch_path(leaf)
-		if branch.size() <= 2:
+		if branch.size() <= 3:
 			key_placements.append(leaf)
 		else:
 			important_spots.append(leaf)
@@ -172,7 +181,7 @@ func generate() -> void:
 
 	for check in ability_check:
 		var leaf_node = ability_check[check]
-		if ability_placements.values().has(leaf_node):
+		if ability_placements.values().has(leaf_node):  #TODO: Implement
 			#cearfully Choose not to lock the player out
 			pass  #get all acessable abilitys bevore this one
 			#-Try Forcing Ability Door
@@ -190,7 +199,6 @@ func generate() -> void:
 				0, len(ability_placements.keys()) - 1
 			)]
 			door_key_list.set(check, ability_placements[ability_id])
-	finished.emit()
 
 
 func add_key(leaf: String):

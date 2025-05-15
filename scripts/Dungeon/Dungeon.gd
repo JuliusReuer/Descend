@@ -7,6 +7,7 @@ signal finished
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var layout: DungeonLayout
+var data: DungeonData
 
 var pipeline: Array[DungeonPipeline]
 var pipeline_idx: int = 0
