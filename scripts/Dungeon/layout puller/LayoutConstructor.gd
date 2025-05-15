@@ -10,7 +10,7 @@ func start(dungeon: Dungeon):
 	if dungeon.pipeline[dungeon.pipeline_idx - 1] is DungeonGeneratorList:
 		generation_list = dungeon.pipeline[dungeon.pipeline_idx - 1]
 
-	dungeon_layout.start_node = DungeonLayoutNode.id_str % [0, generation_list.floors[0].start_idx]
+	dungeon_layout.start_node = DungeonLayoutNode.ID_STR % [0, generation_list.floors[0].start_idx]
 
 	for dungeon_floor_id in len(generation_list.floors):
 		var dungeon_floor = generation_list.floors[dungeon_floor_id]
