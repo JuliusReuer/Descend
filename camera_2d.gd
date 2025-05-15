@@ -7,6 +7,6 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	position.y += Input.get_axis("up","down") * 20
 	position.x += Input.get_axis("left","right") * 20
