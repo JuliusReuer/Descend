@@ -1,6 +1,6 @@
 class_name DungeonLayoutNode
 
-const id_str = "floor_%d_room_%d"
+const ID_STR = "floor_%d_room_%d"
 
 var uuid: String
 var floor_id: int

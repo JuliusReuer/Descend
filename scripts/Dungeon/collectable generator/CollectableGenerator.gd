@@ -181,7 +181,8 @@ func generate() -> void:
 			#3. get all the notes that are not the path to the start and walk them
 			#4. exclude all the got nodes from the list.
 			#5. check remaining nodes for abilitys
-			#6. if the list is empty generate door instead of ability gate and place a key in the remaining rooms
+			#6. if the list is empty generate door instead of ability gate
+			#   and place a key in the remaining rooms
 			#7. else pick a random abilility from the remaing nodes list
 		else:
 			#just choos a random ability -> the player can come back later
@@ -218,8 +219,7 @@ func add_item(item: CollectableItem):
 			item_placements.set(item.id, item_node)
 			item_spots.erase(item_node)
 			return
-		else:
-			item.amount = 1
+		item.amount = 1
 	for i in item.amount:
 		var item_node: String = generate_node_for_placeable(item)
 

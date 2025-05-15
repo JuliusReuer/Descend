@@ -47,6 +47,11 @@ jobs:
      mkdir -p ~/.local/share/godot/export_templates/4.5.dev4
      mv ./templates/* ~/.local/share/godot/export_templates/4.5.dev4
   
+  - name: Export Web
+    run: |
+     mkdir -p ./exports/web
+     ./godot --headless --path ./ --export-release "Web" ./exports/web/index.html
+
 
   - uses: actions/upload-artifact@v4
     with:
@@ -127,6 +132,9 @@ jobs:
     - name: Login To Butler
       run: ./butler login
     
+    - name: Push Web to Itch
+      run: ./butler push ./exports/web juliusreuer/decend:web --userversion-file ./VERSION/VERSION.txt
+
 
  Cleanup:
   needs: [Export, Release, Publish]

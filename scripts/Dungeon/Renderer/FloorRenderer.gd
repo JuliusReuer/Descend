@@ -1,14 +1,16 @@
 class_name FloorRenderer
 extends DungeonPipeline
-var layout: DungeonLayout
-var renderer: TerrainRenderer = TerrainRenderer.new()
+
 @export var floor: int = 0
 @export var map: TileMapLayer
 @export var layout_scale: float = 1
 @export var camera: Camera2D
 
-var _is_rendering: bool
+var layout: DungeonLayout
+var renderer: TerrainRenderer = TerrainRenderer.new()
 var render_id: int
+
+var _is_rendering: bool
 
 
 func to_dict(arr: Array[Vector2i]) -> Dictionary[Vector2i,bool]:
@@ -34,10 +36,10 @@ func render_room(room: String):
 	)
 	for x in width:
 		for y in height:
-			renderer.add_terrain(Vector2i(x, y)+base, Vector2i(0, 0))
+			renderer.add_terrain(Vector2i(x, y) + base, Vector2i(0, 0))
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !_is_rendering:
 		return
 	if render_id >= len(layout.master_room_dict.keys()):

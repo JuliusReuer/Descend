@@ -81,11 +81,11 @@ func insert(point: QuadTreePoint) -> bool:
 	if len(_points) < _capacity:
 		_points.push_back(point)
 		return true
-	else:
-		if !_subdivided:
-			_subdivide()
 
-		return _insert_children(point)
+	if !_subdivided:
+		_subdivide()
+
+	return _insert_children(point)
 
 
 func querry(querry_range: Rect2) -> Array[QuadTreePoint]:  # 1.5 * max_room_size

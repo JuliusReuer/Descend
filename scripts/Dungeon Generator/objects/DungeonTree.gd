@@ -16,12 +16,12 @@ func add(edge: Edge):
 
 
 func is_edge_connected(edge: Edge) -> DungeonTreeConnectionState:
-	var foundP0: bool = vertices.has(edge.p0.dungeon_room_idx)
-	var foundP1: bool = vertices.has(edge.p1.dungeon_room_idx)
+	var found_p0: bool = vertices.has(edge.p0.dungeon_room_idx)
+	var found_p1: bool = vertices.has(edge.p1.dungeon_room_idx)
 
-	if foundP0 and foundP1:
+	if found_p0 and found_p1:
 		return DungeonTreeConnectionState.LOOP
-	elif foundP0 or foundP1:
+	if found_p0 or found_p1:
 		return DungeonTreeConnectionState.CONNECTED
 	return DungeonTreeConnectionState.NOT_CONNECTED
 

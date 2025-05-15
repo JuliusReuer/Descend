@@ -1,9 +1,9 @@
 class_name DungeonGeneratorList
 extends DungeonPipeline
 
+@export var generation_seed: int = 0
 var floors: Array[DungeonGenerator]
 var current_generator: int = 0
-@export var generation_seed: int = 0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _is_running = false
 
