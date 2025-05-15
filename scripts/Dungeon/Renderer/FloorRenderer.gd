@@ -7,6 +7,9 @@ var renderer: TerrainRenderer = TerrainRenderer.new()
 @export var layout_scale: float = 1
 @export var camera: Camera2D
 
+var _is_rendering: bool
+var render_id: int
+
 
 func to_dict(arr: Array[Vector2i]) -> Dictionary[Vector2i,bool]:
 	var dict: Dictionary[Vector2i,bool] = {}
@@ -17,35 +20,34 @@ func to_dict(arr: Array[Vector2i]) -> Dictionary[Vector2i,bool]:
 
 func start(dungeon: Dungeon):
 	layout = dungeon.layout
-	render()
-	var room_rect = layout.master_room_dict[layout.start_node].room_rect
-	var scaled_rect = Rect2i(room_rect.position / layout_scale, room_rect.size / layout_scale)
-	camera.position = map.map_to_local(scaled_rect.get_center())
-
-
-func render():
-	for room in layout.master_room_dict:
-		if DungeonLayoutNode.get_floor(room) == floor:
-			render_room(room)
-	var fill = get_floud_fill(renderer.get_used_rect())
-	map.set_cells_terrain_connect(fill, 0, 1)
+	_is_rendering = true
 
 
 func render_room(room: String):
 	var room_node = layout.master_room_dict[room]
-	for x in int(room_node.room_rect.size.x / layout_scale) - 2:
-		for y in int(room_node.room_rect.size.y / layout_scale) - 2:
-			var pos = Vector2i(
-				x + 1 + room_node.room_rect.position.x / layout_scale,
-				y + 1 + room_node.room_rect.position.y / layout_scale
-			)
-			renderer.add_terrain(pos, Vector2i(0, 0))
+	var start = Time.get_unix_time_from_system()
+	var width = int(room_node.room_rect.size.x / layout_scale) - 2
+	var height = int(room_node.room_rect.size.y / layout_scale) - 2
+	var base = Vector2i(
+		1 + room_node.room_rect.position.x / layout_scale,
+		1 + room_node.room_rect.position.y / layout_scale
+	)
+	for x in width:
+		for y in height:
+			renderer.add_terrain(Vector2i(x, y)+base, Vector2i(0, 0))
 
 
-func get_floud_fill(area: Rect2i):
-	var used = renderer.get_used_cells()
-	for x in area.size.x:
-		for y in area.size.y:
-			var point: Vector2i = area.position + Vector2i(x, y)
-			if !used.has(point):
-				renderer.add_terrain(point, Vector2i(0, 1))
+func _process(delta: float) -> void:
+	if !_is_rendering:
+		return
+	if render_id >= len(layout.master_room_dict.keys()):
+		var room_rect = layout.master_room_dict[layout.start_node].room_rect
+		var scaled_rect = Rect2i(room_rect.position / layout_scale, room_rect.size / layout_scale)
+		camera.position = map.map_to_local(scaled_rect.get_center())
+		renderer.render(map)
+		_is_rendering = false
+	else:
+		var room = layout.master_room_dict.keys()[render_id]
+		if DungeonLayoutNode.get_floor(room) == floor:
+			render_room(room)
+		render_id += 1

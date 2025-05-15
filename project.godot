@@ -33,4 +33,16 @@ DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/gdLinter/plugin.cfg", "res://addons/gwj_countdown/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/gdLinter/plugin.cfg", "res://addons/github_to_itch.io/plugin.cfg", "res://addons/gwj_countdown/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
+[github_to_itch.io]
+
+config/show_welcome=false
+config/github_to_itch_io/enabled=true
+config/github_to_itch_io/itch_username="juliusreuer"
+config/github_to_itch_io/itch_project_name="decend"
+config/discord/enabled=false
+config/linting_check/enabled=true
+config/linting_check/folder="res://scripts"
+config/format_check/enabled=true
+config/format_check/folder="res://scripts"
