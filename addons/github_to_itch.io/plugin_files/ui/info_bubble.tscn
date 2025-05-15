@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk128k0tftsey"]
+
+[ext_resource type="Script" uid="uid://bhprbg2cw7i1d" path="res://addons/github_to_itch.io/plugin_files/ui/info_bubble.gd" id="1_jn1gk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hn3d"]
+bg_color = Color(0.262745, 0.262745, 0.262745, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Info" type="HBoxContainer" node_paths=PackedStringArray("panel")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1001.0
+offset_bottom = -574.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+script = ExtResource("1_jn1gk")
+panel = NodePath("Panel")
+
+[node name="Panel" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0.4)
+layout_mode = 2
+size_flags_vertical = 9
+theme_override_styles/panel = SubResource("StyleBoxFlat_8hn3d")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 3
+
+[node name="Label" type="Label" parent="Panel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "?"
+horizontal_alignment = 1
+vertical_alignment = 1

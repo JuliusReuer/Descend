@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bpnof3v723c2p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ykflv"]
+content_margin_top = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ykflv"]
+bg_color = Color(0.205117, 0.205117, 0.205117, 1)
+
+[resource]
+CheckBox/font_sizes/font_size = 25
+Label/font_sizes/font_size = 30
+Label/styles/normal = SubResource("StyleBoxEmpty_ykflv")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_ykflv")

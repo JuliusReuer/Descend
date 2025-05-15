@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://clx80gpvxn0fh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ykeoe"]
+font_size = 30
+
+[node name="Discord" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Discord"
+label_settings = SubResource("LabelSettings_ykeoe")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+text = "Did you know you can integrate a Discord webhook to get notified about your build status and whether your game is live on Itch.io?
+This feature is only available if the GitHub to Itch.io setting is enabled.
+
+Once you've enabled this option, you'll need to configure a Discord webhook to start receiving notifications."
+fit_content = true

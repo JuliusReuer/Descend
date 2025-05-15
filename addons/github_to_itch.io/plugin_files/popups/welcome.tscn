@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://dr2s2k75uwvi1"]
+
+[ext_resource type="Script" uid="uid://bj0x8gpptom03" path="res://addons/github_to_itch.io/plugin_files/popups/welcome.gd" id="1_7ix1l"]
+[ext_resource type="Theme" uid="uid://bpnof3v723c2p" path="res://addons/github_to_itch.io/plugin_files/popups/Welcome_theme.tres" id="2_jl2yu"]
+[ext_resource type="PackedScene" uid="uid://bamdvnkuseoob" path="res://addons/github_to_itch.io/plugin_files/options_descriptions/Github_to_Itch.io.tscn" id="3_xl7hu"]
+[ext_resource type="PackedScene" uid="uid://clx80gpvxn0fh" path="res://addons/github_to_itch.io/plugin_files/options_descriptions/Discord.tscn" id="4_vgdr7"]
+[ext_resource type="PackedScene" uid="uid://cbljkkktd82mn" path="res://addons/github_to_itch.io/plugin_files/options_descriptions/Lint Checking.tscn" id="5_0n4dt"]
+[ext_resource type="PackedScene" uid="uid://bkmf17wyet4fc" path="res://addons/github_to_itch.io/plugin_files/options_descriptions/Format Checking.tscn" id="6_keuoi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ix1l"]
+font_size = 40
+
+[node name="Welcome" type="Window"]
+title = "Welcome"
+initial_position = 4
+size = Vector2i(1000, 600)
+unresizable = true
+always_on_top = true
+script = ExtResource("1_7ix1l")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_jl2yu")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer"]
+layout_mode = 2
+scroll_vertical = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 9
+
+[node name="Label" type="Label" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Welcome"
+label_settings = SubResource("LabelSettings_7ix1l")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "This is a short guide on how to use this plugin.
+If you’ve already read it or prefer not to, feel free to close this window."
+fit_content = true
+
+[node name="Label2" type="Label" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Getting Started"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "By enabling this plugin, a new option has been added:
+[bgcolor=#886600]Project > Tool > Github to Itch.io Config[/bgcolor]
+Once you’ve finished reading this guide, please open that option to configure your project."
+fit_content = true
+
+[node name="Label4" type="Label" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Generel"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Some of the workflow actions require advanced permissions.
+Please enable them by going to your GitHub project settings:
+[bgcolor=#886600]Settings > Actions > General[/bgcolor], then scroll down to [bgcolor=#886600]Workflow permissions[/bgcolor].
+Set the workflows to have [bgcolor=#886600]Read and Write[/bgcolor] access."
+fit_content = true
+
+[node name="Label3" type="Label" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Button" type="Button" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Github to Itch.io"
+
+[node name="Button2" type="Button" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Discord"
+
+[node name="Button3" type="Button" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Linting"
+
+[node name="Button4" type="Button" parent="PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Formating"
+
+[node name="GithubToItch_io" parent="PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_xl7hu")]
+layout_mode = 2
+
+[node name="Discord" parent="PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("4_vgdr7")]
+layout_mode = 2
+
+[node name="LintChecking" parent="PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("5_0n4dt")]
+layout_mode = 2
+
+[node name="FormatChecking" parent="PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_keuoi")]
+layout_mode = 2

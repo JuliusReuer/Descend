@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://bamdvnkuseoob"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_b146q"]
+font_size = 30
+
+[node name="GithubToItch_io" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Github to Itch.io"
+label_settings = SubResource("LabelSettings_b146q")
+
+[node name="Instructions" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 2
+theme_override_constants/outline_size = 0
+bbcode_enabled = true
+text = "[b]If you haven't setup your project in Itch, [color=#8af][url=https://itch.io/dashboard]do that first[/url][/color][/b].
+
+[font_size=24][center]Secrets in Github[/center][/font_size]
+[ol] Go to  [color=#8af][url]https://itch.io/user/settings/api-keys[/url][/color] and generate a new api key or use an existing one.
+ Copy that code and go to your github repo settings
+ On the lefthand side find Secrets > Actions and add the API key as a secret with the name [code][bgcolor=#444] BUTLER_API_KEY [/bgcolor][/code][/ol]
+
+[center][img=center,center]res://addons/github_to_itch.io/assets/secrets.png[/img][/center]"
+fit_content = true
+scroll_active = false
+selection_enabled = true
+deselect_on_focus_loss_enabled = false

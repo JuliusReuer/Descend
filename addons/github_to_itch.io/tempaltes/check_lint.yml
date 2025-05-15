@@ -1,0 +1,29 @@
+name: Checking {PROJECT_NAME} for Linting errors
+
+on:
+  [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: "Check Lint"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Ensure python is installed
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      # Install gdtoolkit
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'gdtoolkit==4.*'
+
+      - name: Check Lint
+        run: gdlint {LINT_FOLDER}
