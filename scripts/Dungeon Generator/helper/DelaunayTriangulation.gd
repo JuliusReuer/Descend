@@ -1,4 +1,4 @@
-class_name DelaunaryTriangulation
+class_name DelaunayTriangulation
 extends Triangulation
 
 

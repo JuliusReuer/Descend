@@ -3,7 +3,7 @@ extends Node2D
 
 enum GenerationCycleState {
 	CIRCLE,
-	SEPERATION,
+	separation,
 	DISCARD_SMALL_ROOMS,
 	DISCARD_BORDERING_ROOMS,
 	TRIANGULATION,
@@ -18,7 +18,7 @@ enum GenerationCycleState {
 @export var debug_render_ids: bool
 var rooms: Array[DungeonRoom] = []
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-var start_idx = -1
+var start_idx:int = -1
 var _is_generating: bool
 
 var _center: Vector2 = Vector2(300, 300)
@@ -31,7 +31,7 @@ var _cur_triangulate_room: int
 var _debug_rooms: Array[DungeonRoom]
 var _minimum_spanning_tree: Array[Edge]
 
-var _triangulation: DelaunaryTriangulation = DelaunaryTriangulation.new()
+var _triangulation: DelaunayTriangulation = DelaunayTriangulation.new()
 var _current_generation_state: GenerationCycleState
 
 
@@ -46,60 +46,60 @@ func _physics_process(_delta: float) -> void:
 
 
 #region private functions
-func _create_rooms_in_circle():
+func _create_rooms_in_circle()->void:
 	for i in _init_room_count:
 		_create_room_in_circle()
 
 
-func _create_room_in_circle():
-	var r = _init_radius * sqrt(rng.randf_range(0.0, 1.0))
-	var theta = rng.randf_range(0.0, 1.0) * 2 * PI
-	var pos = Vector2i(floori(r * cos(theta)), floori(r * sin(theta)))
-	var size = Vector2i(
+func _create_room_in_circle()->void:
+	var r:float = _init_radius * sqrt(rng.randf_range(0.0, 1.0))
+	var theta:float = rng.randf_range(0.0, 1.0) * 2 * PI
+	var pos:Vector2i = Vector2i(floori(r * cos(theta)), floori(r * sin(theta)))
+	var size:Vector2i = Vector2i(
 		rng.randi_range(int(_room_size_bounds.x), int(_room_size_bounds.y)),
 		rng.randi_range(int(_room_size_bounds.x), int(_room_size_bounds.y))
 	)
-	var room_color = Color.RED
+	var room_color:Color = Color.RED
 	rooms.push_back(DungeonRoom.new(Vector2i(_center) + pos, size, room_color))
 
 
-func _seperate_rooms() -> bool:
-	var max_speed = 3
-	var is_every_room_seperated = true
+func _separate_rooms() -> bool:
+	var max_speed:float = 3
+	var is_every_room_separated:bool = true
 
-	var quadtree_boundary = QuadTree.get_boundary(rooms)
-	var quadtree = QuadTree.new(quadtree_boundary)
+	var quadtree_boundary:Rect2 = QuadTree.get_boundary(rooms)
+	var quadtree:QuadTree = QuadTree.new(quadtree_boundary)
 
 	for room in rooms:
 		if !quadtree.insert(QuadTreePoint.from_room(room)):
 			push_warning("Room:" + str(room.get_center()) + " was not inserted")
 	for room in rooms:
-		var seperation_direction: Vector2 = Vector2.ZERO
-		var query = QuadTree.create_query(room, self)
-		var querried_data: Array[QuadTreePoint] = quadtree.query(query)
-		for queryed_point in querried_data:
-			var other_room = queryed_point.meta_data
+		var separation_direction: Vector2 = Vector2.ZERO
+		var query:Rect2 = QuadTree.create_query(room, self)
+		var queried_data: Array[QuadTreePoint] = quadtree.query(query)
+		for queried_point in queried_data:
+			var other_room:DungeonRoom = queried_point.meta_data
 
 			if room == other_room:
 				continue
 			if !room.is_overlapping(other_room):
 				continue
 
-			is_every_room_seperated = false
+			is_every_room_separated = false
 
 			var cur_direction: Vector2 = room.get_center() - other_room.get_center()
 			cur_direction = cur_direction.normalized()
 			cur_direction *= max_speed
 
-			seperation_direction += cur_direction
+			separation_direction += cur_direction
 
-		room.move(seperation_direction)
-	return is_every_room_seperated
+		room.move(separation_direction)
+	return is_every_room_separated
 
 
-func _discard_small_rooms(debug: bool):
+func _discard_small_rooms(debug: bool)->bool:
 	for i in range(len(rooms) - 1, -1, -1):
-		var room = rooms[i]
+		var room:DungeonRoom = rooms[i]
 		if room.get_size().x < _room_size_threshold or room.get_size().y < _room_size_threshold:
 			_debug_rooms.push_back(room)
 			rooms.erase(room)
@@ -332,9 +332,9 @@ func update():
 			_create_room_in_circle()
 
 			if len(rooms) == _init_room_count:
-				_current_generation_state = GenerationCycleState.SEPERATION
-		GenerationCycleState.SEPERATION:
-			if _seperate_rooms():
+				_current_generation_state = GenerationCycleState.separation
+		GenerationCycleState.separation:
+			if _separate_rooms():
 				_current_generation_state = GenerationCycleState.DISCARD_SMALL_ROOMS
 		GenerationCycleState.DISCARD_SMALL_ROOMS:
 			if _discard_small_rooms(true):
