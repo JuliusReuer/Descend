@@ -67,7 +67,7 @@ func teleport(new_floor: int):
 			break
 
 
-func floor_up(new_floor: int):
+func floor_up(new_floor: int)->void:
 	floor = new_floor
 	clear()
 	render()

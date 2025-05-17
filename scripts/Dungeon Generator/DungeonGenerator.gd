@@ -75,10 +75,10 @@ func _seperate_rooms() -> bool:
 			push_warning("Room:" + str(room.get_center()) + " was not inserted")
 	for room in rooms:
 		var seperation_direction: Vector2 = Vector2.ZERO
-		var querry = QuadTree.create_querry(room, self)
-		var querried_data: Array[QuadTreePoint] = quadtree.querry(querry)
-		for querryed_point in querried_data:
-			var other_room = querryed_point.meta_data
+		var query = QuadTree.create_query(room, self)
+		var querried_data: Array[QuadTreePoint] = quadtree.query(query)
+		for queryed_point in querried_data:
+			var other_room = queryed_point.meta_data
 
 			if room == other_room:
 				continue
