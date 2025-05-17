@@ -52,6 +52,11 @@ jobs:
      mkdir -p ./exports/web
      ./godot --headless --path ./ --export-release "Web" ./exports/web/index.html
 
+  - name: Export Windows Desktop
+    run: |
+     mkdir -p ./exports/win
+     ./godot --headless --path ./ --export-release "Windows Desktop" ./exports/win/decend.exe
+
 
   - uses: actions/upload-artifact@v4
     with:
@@ -134,6 +139,9 @@ jobs:
     
     - name: Push Web to Itch
       run: ./butler push ./exports/web juliusreuer/decend:web --userversion-file ./VERSION/VERSION.txt
+
+    - name: Push Windows Desktop to Itch
+      run: ./butler push ./exports/win juliusreuer/decend:win --userversion-file ./VERSION/VERSION.txt
 
 
  Cleanup:
