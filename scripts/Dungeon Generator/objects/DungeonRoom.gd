@@ -19,30 +19,30 @@ func _init(position: Vector2, size: Vector2, color: Color) -> void:
 	_color = color
 
 
-func move(direction: Vector2)->void:
+func move(direction: Vector2) -> void:
 	_position += direction
 
 
-func set_color(color: Color)->void:
+func set_color(color: Color) -> void:
 	_color = color
 
 
-func set_room_type(type: DungeonRoomType)->void:
+func set_room_type(type: DungeonRoomType) -> void:
 	_room_type = type
 
 
-func add_connection(room_idx: int)->void:
+func add_connection(room_idx: int) -> void:
 	_connected_rooms.push_back(room_idx)
 
 
-func draw(renderer: Node2D, debug_render: bool = false)->void:
-	var draw_color:Color = Color.GRAY if debug_render else _color
+func draw(renderer: Node2D, debug_render: bool = false) -> void:
+	var draw_color: Color = Color.GRAY if debug_render else _color
 	renderer.draw_rect(Rect2i(_position, _size), draw_color, false, 1)
 
 
-func draw_id(renderer: DungeonGenerator, debug_render: bool = false)->void:
-	var draw_color:Color = Color.GRAY if debug_render else _color
-	var id:int = renderer.rooms.find(self)
+func draw_id(renderer: DungeonGenerator, debug_render: bool = false) -> void:
+	var draw_color: Color = Color.GRAY if debug_render else _color
+	var id: int = renderer.rooms.find(self)
 	renderer.draw_string(
 		ThemeDB.fallback_font,
 		_position + Vector2(0, _size.y / 2),
@@ -54,7 +54,7 @@ func draw_id(renderer: DungeonGenerator, debug_render: bool = false)->void:
 	)
 
 
-func is_overlapping(other: DungeonRoom)->bool:
+func is_overlapping(other: DungeonRoom) -> bool:
 	return (
 		_position.x < other._position.x + other._size.x
 		&& _position.x + _size.x > other._position.x

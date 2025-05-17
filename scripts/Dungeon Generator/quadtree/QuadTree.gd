@@ -22,7 +22,7 @@ static func get_boundary(rooms: Array[DungeonRoom]) -> Rect2:
 	return rect
 
 
-static func create_query(room: DungeonRoom, generator: DungeonGenerator)->Rect2:
+static func create_query(room: DungeonRoom, generator: DungeonGenerator) -> Rect2:
 	var max_room_size: float = generator._room_size_bounds.y
 	return Rect2(
 		room.get_position() - Vector2(max_room_size, max_room_size),
@@ -31,12 +31,12 @@ static func create_query(room: DungeonRoom, generator: DungeonGenerator)->Rect2:
 	#return Rect2(room.get_position(),room.get_size())
 
 
-func _init(boundary: Rect2, capacity: int = 1)->void:
+func _init(boundary: Rect2, capacity: int = 1) -> void:
 	_boundary = boundary
 	_capacity = capacity
 
 
-func _subdivide()->void:
+func _subdivide() -> void:
 	_nw = QuadTree.new(Rect2(_boundary.position, _boundary.size / 2), _capacity)
 	_ne = QuadTree.new(
 		Rect2(

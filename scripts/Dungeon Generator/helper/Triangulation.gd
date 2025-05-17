@@ -4,7 +4,7 @@ var _triangles: Array[Triangle] = []
 var _vertices: Array[Vertex] = []
 
 
-func draw(renderer: Node2D)->void:
+func draw(renderer: Node2D) -> void:
 	var draw_color = Color8(0, 255, 0)
 	for triangle in _triangles:
 		var v0 = _vertices[triangle.first].vertex

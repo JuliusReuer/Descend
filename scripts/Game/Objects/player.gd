@@ -18,6 +18,6 @@ func get_input() -> Vector2:
 
 
 func _physics_process(delta: float) -> void:
-	var player_input:Vector2 = get_input()
+	var player_input: Vector2 = get_input()
 	velocity = lerp(velocity, player_input * speed, delta * accel)
 	move_and_slide()
