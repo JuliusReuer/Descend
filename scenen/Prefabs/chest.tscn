@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqmn4i7j1bngq"]
+[gd_scene load_steps=5 format=3 uid="uid://cqmn4i7j1bngq"]
 
 [ext_resource type="Script" uid="uid://daoe5b6f1e4kk" path="res://scripts/Game/Objects/chest.gd" id="1_8uwsg"]
 [ext_resource type="Texture2D" uid="uid://dk03nyf1mwc4e" path="res://assets/textures/Chests.png" id="1_twpm2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4qdf3"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2gdn"]
+size = Vector2(32, 32)
 
 [node name="Chest" type="Node2D"]
 texture_filter = 1
@@ -10,3 +16,16 @@ script = ExtResource("1_8uwsg")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_twpm2")
 vframes = 2
+
+[node name="OpenRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OpenRange"]
+shape = SubResource("RectangleShape2D_4qdf3")
+debug_color = Color(0, 0.638679, 0.375343, 0.42)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_j2gdn")
+
+[connection signal="body_entered" from="OpenRange" to="." method="_on_open_range_body_entered"]

@@ -183,28 +183,28 @@ func render_room(room: String):
 
 
 func get_between_rect(room0: Rect2i, room1: Rect2i) -> Rect2i:
-	var a1 = room0.position
-	var a2 = room0.position + room0.size
-	var b1 = room1.position
-	var b2 = room1.position + room1.size
+	var a1:Vector2i = room0.position
+	var a2:Vector2i = room0.position + room0.size
+	var b1:Vector2i = room1.position
+	var b2:Vector2i = room1.position + room1.size
 
-	var x1_min = min(a1.x, b1.x)
-	var x1_max = max(a1.x, b1.x)
-	var y1_min = min(a1.y, b1.y)
-	var y1_max = max(a1.y, b1.y)
+	var x1_min:int = min(a1.x, b1.x)
+	var x1_max:int = max(a1.x, b1.x)
+	var y1_min:int = min(a1.y, b1.y)
+	var y1_max:int = max(a1.y, b1.y)
 
-	var x2_min = min(a2.x, b2.x)
-	var x2_max = max(a2.x, b2.x)
-	var y2_min = min(a2.y, b2.y)
-	var y2_max = max(a2.y, b2.y)
+	var x2_min:int = min(a2.x, b2.x)
+	var x2_max:int = max(a2.x, b2.x)
+	var y2_min:int = min(a2.y, b2.y)
+	var y2_max:int = max(a2.y, b2.y)
 
-	var x_schnitt_min = max(x1_min, x2_min)
-	var x_schnitt_max = min(x1_max, x2_max)
-	var y_schnitt_min = max(y1_min, y2_min)
-	var y_schnitt_max = min(y1_max, y2_max)
+	var x_schnitt_min:int = max(x1_min, x2_min)
+	var x_schnitt_max:int = min(x1_max, x2_max)
+	var y_schnitt_min:int = max(y1_min, y2_min)
+	var y_schnitt_max:int = min(y1_max, y2_max)
 
-	var x = min(x_schnitt_min, x_schnitt_max)
-	var y = min(y_schnitt_min, y_schnitt_max)
-	var x_max = max(x_schnitt_min, x_schnitt_max)
-	var y_max = max(y_schnitt_min, y_schnitt_max)
+	var x:int = min(x_schnitt_min, x_schnitt_max)
+	var y:int = min(y_schnitt_min, y_schnitt_max)
+	var x_max:int = max(x_schnitt_min, x_schnitt_max)
+	var y_max:int = max(y_schnitt_min, y_schnitt_max)
 	return Rect2i(Vector2i(x, y), Vector2i(x_max - x, y_max - y))

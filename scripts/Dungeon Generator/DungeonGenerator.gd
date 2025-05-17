@@ -332,8 +332,8 @@ func update():
 			_create_room_in_circle()
 
 			if len(rooms) == _init_room_count:
-				_current_generation_state = GenerationCycleState.separation
-		GenerationCycleState.separation:
+				_current_generation_state = GenerationCycleState.SEPARATION
+		GenerationCycleState.SEPARATION:
 			if _separate_rooms():
 				_current_generation_state = GenerationCycleState.DISCARD_SMALL_ROOMS
 		GenerationCycleState.DISCARD_SMALL_ROOMS:

@@ -5,11 +5,11 @@ var _vertices: Array[Vertex] = []
 
 
 func draw(renderer: Node2D) -> void:
-	var draw_color = Color8(0, 255, 0)
+	var draw_color:Color = Color8(0, 255, 0)
 	for triangle in _triangles:
-		var v0 = _vertices[triangle.first].vertex
-		var v1 = _vertices[triangle.second].vertex
-		var v2 = _vertices[triangle.third].vertex
+		var v0:Vector2 = _vertices[triangle.first].vertex
+		var v1:Vector2 = _vertices[triangle.second].vertex
+		var v2:Vector2 = _vertices[triangle.third].vertex
 
 		renderer.draw_line(v0, v1, draw_color)
 		renderer.draw_line(v0, v2, draw_color)
