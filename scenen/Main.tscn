@@ -225,6 +225,7 @@ texture_filter = 1
 tile_set = SubResource("TileSet_3b0ty")
 
 [node name="Player" parent="." instance=ExtResource("29_rm16n")]
+speed = 200.0
 accel = 20.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
