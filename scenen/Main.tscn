@@ -232,6 +232,7 @@ accel = 20.0
 zoom = Vector2(2, 2)
 limit_enabled = false
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 script = ExtResource("24_hhcpw")
 
 [node name="Background" type="CanvasLayer" parent="Player/Camera2D"]
