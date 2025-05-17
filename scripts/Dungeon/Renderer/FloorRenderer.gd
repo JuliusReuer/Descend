@@ -9,7 +9,7 @@ extends DungeonPipeline
 @export var door: PackedScene
 @export var chest: PackedScene
 @export var stairs: PackedScene
-var door_size = 4
+var door_size = 2
 
 var layout: DungeonLayout
 var data: DungeonData

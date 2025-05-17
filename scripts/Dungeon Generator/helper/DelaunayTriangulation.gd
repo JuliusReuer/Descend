@@ -1,7 +1,8 @@
 class_name DelaunayTriangulation
 extends Triangulation
 
-func start_triangulation()->void:
+
+func start_triangulation() -> void:
 	_add_vertex(Vector2(-3000, -3000), -1)
 	_add_vertex(Vector2(-3000, 9500), -1)
 	_add_vertex(Vector2(9000, -3500), -1)
@@ -9,7 +10,7 @@ func start_triangulation()->void:
 	_add_triangle(0, 1, 2)
 
 
-func add_point(point: Vector2, dungeon_room_idx: int)->void:
+func add_point(point: Vector2, dungeon_room_idx: int) -> void:
 	var new_indece = _add_vertex(point, dungeon_room_idx)
 
 	var intersecting_polygon: Array[int] = []

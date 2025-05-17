@@ -3,7 +3,7 @@ extends Node2D
 
 enum GenerationCycleState {
 	CIRCLE,
-	separation,
+	SEPARATION,
 	DISCARD_SMALL_ROOMS,
 	DISCARD_BORDERING_ROOMS,
 	TRIANGULATION,
