@@ -19,11 +19,11 @@ func _init(position: Vector2, size: Vector2, color: Color) -> void:
 	_color = color
 
 
-func move(direction: Vector2):
+func move(direction: Vector2) -> void:
 	_position += direction
 
 
-func set_color(color: Color):
+func set_color(color: Color) -> void:
 	_color = color
 
 

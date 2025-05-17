@@ -23,8 +23,8 @@ var block_door: Array[String] = []
 #region Resulting Lists
 var door_key_list: Dictionary[String,String] = {}  #Door,Key
 var key_placements: Array[String] = []
-var item_placements: Dictionary[String,String] = {}  #Item_id,Room
-var ability_placements: Dictionary[String,String] = {}  #Ability_id,Room
+var item_placements: Dictionary[String,String] = {}  #Room,Item_id
+var ability_placements: Dictionary[String,String] = {}  #Room,Ability_id
 var upgrade_placements: Dictionary[String,String] = {}  #Room,Upgrade_id
 var treasure_placements: Dictionary[String,String] = {}  #Room,Treasure_id
 #endregion
@@ -205,6 +205,7 @@ func add_key(leaf: String):
 	var door_pos = generate_gate(leaf)
 	door_key_list.set(door_pos, leaf)
 	block_door.append(door_pos)
+	layout.master_room_dict[leaf].content = "key"
 
 
 func add_ability(ability: Ability):
@@ -215,7 +216,8 @@ func add_ability(ability: Ability):
 			var gate = generate_gate(ability_node)
 			block_door.append(gate)
 			door_key_list.set(gate, ability_node)
-		ability_placements.set(ability.id + (("#%d" % i) if i > 0 else ""), ability_node)
+		ability_placements.set(ability_node, ability.id)
+		layout.master_room_dict[ability_node].content = ability.id
 
 
 func add_item(item: CollectableItem):
@@ -224,14 +226,16 @@ func add_item(item: CollectableItem):
 		var possible_placements: Array[String] = item_spots.duplicate().filter(filter)
 		if len(possible_placements) > 0:
 			var item_node = possible_placements[rng.randi_range(0, len(possible_placements) - 1)]
-			item_placements.set(item.id, item_node)
+			item_placements.set(item_node, item.id)
 			item_spots.erase(item_node)
+			layout.master_room_dict[item_node].content = item.id
 			return
 		item.amount = 1
 	for i in item.amount:
 		var item_node: String = generate_node_for_placeable(item)
 
-		item_placements.set(item.id + (("#%d" % i) if i > 0 else ""), item_node)
+		item_placements.set(item_node, item.id)
+		layout.master_room_dict[item_node].content = item.id
 
 
 func add_upgrade(upgrade: Upgrade):
@@ -244,13 +248,18 @@ func add_upgrade(upgrade: Upgrade):
 				0, len(possible_placements) - 1
 			)]
 			upgrade_placements.set(upgrade_place_node, upgrade.id)
+			layout.master_room_dict[upgrade_place_node].content = upgrade.id
 			item_spots.erase(upgrade_place_node)
 			continue
 		var upgrade_node: String = generate_node_for_placeable(upgrade)
 		upgrade_placements.set(upgrade_node, upgrade.id)
+		layout.master_room_dict[upgrade_node].content = upgrade.id
 
 
 func add_treasure(treasure: Treasure):
 	for i in treasure.amount:
 		var treasure_node: String = generate_node_for_placeable(treasure)
+		if treasure_node.is_empty():
+			continue
 		treasure_placements.set(treasure_node, treasure.id)
+		layout.master_room_dict[treasure_node].content = treasure.id

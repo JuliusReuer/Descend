@@ -2,10 +2,18 @@ class_name DungeonLayoutNode
 
 const ID_STR = "floor_%d_room_%d"
 
-var uuid: String
+var uuid: String:
+	set(value):
+		var data = get_data(value)
+		floor_id = data.x
+		room_id = data.y
+		uuid = value
 var floor_id: int
+var room_id: int
 var connections: Array[String] = []
 var room_rect: Rect2
+
+var content: String
 
 
 func add_connection(connection: int, dungeon_floor: int = -1):

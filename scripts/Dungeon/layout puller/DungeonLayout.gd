@@ -16,7 +16,6 @@ var floor_entrys: Dictionary[int,String] = {}
 func add(dungeon_floor: DungeonGenerator, floor_id: int, room_id: int):
 	var new_node = DungeonLayoutNode.new()
 	new_node.uuid = "floor_%d_room_%d" % [floor_id, room_id]
-	new_node.floor_id = floor_id
 
 	var room = dungeon_floor.rooms[room_id]
 
