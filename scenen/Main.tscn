@@ -224,7 +224,6 @@ script = ExtResource("1_uu6xs")
 [node name="Dungeon" type="Node2D" parent="."]
 visible = false
 script = ExtResource("2_cm0pq")
-debug = true
 exit = SubResource("Resource_r2a4l")
 entered = SubResource("Resource_5qrfk")
 general = SubResource("Resource_471co")
