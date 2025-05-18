@@ -32,6 +32,7 @@ Buy Items Outside
 - [ ] Add Inventory
 - [ ] Add Key UI
 - [ ] Add Door Functionality
+- [ ] Add Stairs Functionality
 - [ ] Add Enemy
 - [ ] Remove Ability Checks (Doors)
 - [ ] Add Main Menu
