@@ -142,10 +142,11 @@ func render_room(room: String):
 		)
 
 	var connections:Array[String] = room_node.connections.duplicate().filter(filter)
-	for connection in room_node.connections:
+	for connection in connections:
 		var id: int = layout.master_room_dict[connection].room_id
+		var con_id = "%d_%d" % [min(room_node.room_id, id), max(room_node.room_id, id)]
 		connection_list.set(
-			"%d_%d" % [min(room_node.room_id, id), max(room_node.room_id, id)], true
+			con_id, true
 		)
 		if !DungeonLayoutNode.is_floor(connection, room_node.floor_id):
 			place_stairs(room_node, connection)

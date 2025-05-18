@@ -313,7 +313,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="Debug" type="CanvasLayer" parent="Player/Camera2D"]
 layer = 2
-visible = false
 
 [node name="SpinBox" type="SpinBox" parent="Player/Camera2D/Debug" node_paths=PackedStringArray("renderer")]
 anchors_preset = 2

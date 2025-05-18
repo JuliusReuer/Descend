@@ -67,16 +67,20 @@ func set_frame(frame: int) -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("unlock") and locked and collider_entered:
+		if !Global.player.remove_collectable("key"):
+			return
 		SignalBus.door_left.emit()
 		DungeonCache.unlocked.append(cur_room)
 		locked = false
+		set_frame(1 if locked else 0)
 		col.disabled = !locked
-		
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Player and locked:
 		SignalBus.door_entered.emit()
 		collider_entered = true
+		print("entered")
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
