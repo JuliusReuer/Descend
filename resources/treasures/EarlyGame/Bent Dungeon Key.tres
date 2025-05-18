@@ -11,7 +11,7 @@ discription = "Got damm I could have used that.
 It think it no longer opens anything.
 Still kinda cool"
 id = "bent_dungeon_key"
-spread = 0
+spread = 0.0
 game_play_time_stamp = 7
-item_amount = 10
+amount = 10
 metadata/_custom_type_script = "uid://ejxiof5nsyeo"

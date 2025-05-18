@@ -36,6 +36,8 @@ Global="*res://scripts/Global/Global.gd"
 SignalBus="*res://scripts/Global/SignalBus.gd"
 PlaceableLookup="*res://scripts/Global/PlaceableLookup.gd"
 DungeonCache="*res://scripts/Global/DungeonCache.gd"
+SceneManager="*res://addons/scene_manager/scene_manager.tscn"
+Scenes="*res://addons/scene_manager/scenes.gd"
 
 [debug]
 
@@ -47,7 +49,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/gdLinter/plugin.cfg", "res://addons/github_to_itch.io/plugin.cfg", "res://addons/gwj_countdown/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/fancy_editor_sounds/plugin.cfg", "res://addons/gdLinter/plugin.cfg", "res://addons/github_to_itch.io/plugin.cfg", "res://addons/gwj_countdown/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [github_to_itch.io]
 

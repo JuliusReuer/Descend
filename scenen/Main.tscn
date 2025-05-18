@@ -1,10 +1,12 @@
-[gd_scene load_steps=46 format=3 uid="uid://bjuskxpwiqy6g"]
+[gd_scene load_steps=54 format=3 uid="uid://bjuskxpwiqy6g"]
 
 [ext_resource type="Script" uid="uid://vq7oo3q2ebbp" path="res://scripts/Dungeon Generator/DungeonGenerator.gd" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://bg26mqenifput" path="res://scripts/Game/UI/debug.gd" id="1_uu6xs"]
 [ext_resource type="Script" uid="uid://t3wifm7bmi8j" path="res://scripts/Dungeon/Dungeon.gd" id="2_cm0pq"]
 [ext_resource type="Script" uid="uid://jkfgyvsrxoxy" path="res://scripts/Dungeon/DungeonGeneratorList.gd" id="3_3dxm6"]
+[ext_resource type="Script" uid="uid://p1fa6q5mdrev" path="res://scripts/SceneManager/SceneManagerOption.gd" id="3_ptyuh"]
 [ext_resource type="Script" uid="uid://bufm6v3jqt5g2" path="res://scripts/Dungeon/layout puller/LayoutConstructor.gd" id="4_fos0i"]
+[ext_resource type="Script" uid="uid://dnps17vs641jf" path="res://scripts/SceneManager/SceneManagerGeneralOption.gd" id="4_v3sr5"]
 [ext_resource type="Script" uid="uid://b884d07tbda08" path="res://scripts/Dungeon/collectable generator/CollectableGenerator.gd" id="6_lgr22"]
 [ext_resource type="Script" uid="uid://b2qt8jgchbvs0" path="res://scripts/Collectable Resources/Ability.gd" id="7_03owx"]
 [ext_resource type="Resource" uid="uid://bnsyypm8rpbqe" path="res://resources/abilitys/Dash.tres" id="8_wkp8b"]
@@ -37,6 +39,31 @@
 [ext_resource type="Script" uid="uid://dqs1jadnvw7q6" path="res://scripts/Game/UI/change_floor_label.gd" id="34_ha8kh"]
 [ext_resource type="Script" uid="uid://dr6kuxnki3dc4" path="res://scripts/Game/UI/keylabel.gd" id="34_r3r44"]
 [ext_resource type="Script" uid="uid://dnxo6r0c8rw8i" path="res://scripts/Game/UI/unlock_door_label.gd" id="35_c1u6d"]
+[ext_resource type="Script" uid="uid://crruytwr6edwt" path="res://scenen/canvas_layer.gd" id="38_mgx16"]
+
+[sub_resource type="Resource" id="Resource_r2a4l"]
+script = ExtResource("3_ptyuh")
+fade_speed = 2.0
+fade_pattern = "squares"
+smoothness = 0.5
+inverted = true
+metadata/_custom_type_script = "uid://p1fa6q5mdrev"
+
+[sub_resource type="Resource" id="Resource_5qrfk"]
+script = ExtResource("3_ptyuh")
+fade_speed = 2.0
+fade_pattern = "squares"
+smoothness = 0.5
+inverted = false
+metadata/_custom_type_script = "uid://p1fa6q5mdrev"
+
+[sub_resource type="Resource" id="Resource_471co"]
+script = ExtResource("4_v3sr5")
+color = Color(0, 0, 0, 1)
+timeout = 0.0
+clickable = true
+add_to_back = true
+metadata/_custom_type_script = "uid://dnps17vs641jf"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oye8v"]
 texture = ExtResource("27_5mvff")
@@ -176,12 +203,31 @@ fill_to = Vector2(0, 0.504274)
 [sub_resource type="LabelSettings" id="LabelSettings_rm16n"]
 font_size = 20
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mgx16"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.18359, 0.18359, 0.18359, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_mgx16"]
+font_size = 40
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_uu6xs")
 
 [node name="Dungeon" type="Node2D" parent="."]
 visible = false
 script = ExtResource("2_cm0pq")
+debug = true
+exit = SubResource("Resource_r2a4l")
+entered = SubResource("Resource_5qrfk")
+general = SubResource("Resource_471co")
 metadata/_custom_type_script = "uid://t3wifm7bmi8j"
 
 [node name="DungeonGeneratorList" type="Node2D" parent="Dungeon"]
@@ -267,6 +313,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="Debug" type="CanvasLayer" parent="Player/Camera2D"]
 layer = 2
+visible = false
 
 [node name="SpinBox" type="SpinBox" parent="Player/Camera2D/Debug" node_paths=PackedStringArray("renderer")]
 anchors_preset = 2
@@ -398,5 +445,37 @@ text = "You Collected a ..."
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player/Camera2D" node_paths=PackedStringArray("dungeon", "list", "progr")]
+script = ExtResource("38_mgx16")
+dungeon = NodePath("../../../Dungeon")
+list = NodePath("../../../Dungeon/DungeonGeneratorList")
+progr = NodePath("PanelContainer/VBoxContainer/ProgressBar")
+
+[node name="PanelContainer" type="PanelContainer" parent="Player/Camera2D/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mgx16")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player/Camera2D/CanvasLayer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Player/Camera2D/CanvasLayer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Generating Dungeon
+Please Wait"
+label_settings = SubResource("LabelSettings_mgx16")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="Player/Camera2D/CanvasLayer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="Player/Camera2D/CanvasLayer/PanelContainer/VBoxContainer"]
+layout_mode = 2
 
 [connection signal="value_changed" from="Player/Camera2D/Debug/SpinBox" to="Player/Camera2D/Debug/SpinBox" method="_on_value_changed"]

@@ -12,7 +12,7 @@ Some People say it's 1m times 1m,
 and can be crafted 9 gold ingots.
 You ask yourself what is crafting."
 id = "gold_block"
-spread = 0
+spread = 0.0
 game_play_time_stamp = 4
-item_amount = 0
+amount = 0
 metadata/_custom_type_script = "uid://ejxiof5nsyeo"

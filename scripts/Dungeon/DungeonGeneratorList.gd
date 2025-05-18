@@ -1,6 +1,8 @@
 class_name DungeonGeneratorList
 extends DungeonPipeline
 
+signal next
+
 @export var generation_seed: int = 0
 var floors: Array[DungeonGenerator]
 var current_generator: int = 0
@@ -27,6 +29,7 @@ func _process(_delta: float) -> void:
 	if step_finished or !_is_running:
 		return
 	if !floors[current_generator]._is_generating:
+		next.emit()
 		floors[current_generator].generate_dungeon()
 	else:
 		if (

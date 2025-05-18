@@ -1,6 +1,10 @@
 class_name Stairs
 extends Node2D
 
+@export var exit:SceneManagerOption
+@export var enter:SceneManagerOption
+@export var general:SceneManagerGeneralOption
+
 var cur_room_id: String
 var other_room_id: String
 var is_in_range:bool
@@ -22,6 +26,8 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("enter") and is_in_range:
 		if sprite.frame == 0:
 			if other_room_id == "outside":
+				DungeonCache.inventory = Global.player.inventory
+				SceneManager.change_scene("Outside",exit.get_option(),enter.get_option(),general.get_option())
 				return #TODO: Load Outside
 			renderer.floor_up(DungeonLayoutNode.get_floor(other_room_id))
 		else:

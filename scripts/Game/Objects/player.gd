@@ -11,6 +11,7 @@ var input_disabled:bool
 
 func _ready() -> void:
 	Global.player = self
+	inventory = DungeonCache.inventory
 
 
 func get_input() -> Vector2:

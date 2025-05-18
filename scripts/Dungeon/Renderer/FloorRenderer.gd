@@ -35,6 +35,7 @@ func start(dungeon: Dungeon) -> void:
 	data = dungeon.data
 	cached_seed = dungeon.rng.randi()
 	teleport(0)
+	finished.emit()
 
 
 func clear() -> void:

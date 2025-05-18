@@ -6,3 +6,4 @@ signal stairs_entered
 signal stairs_left
 signal door_entered
 signal door_left
+signal load_finished

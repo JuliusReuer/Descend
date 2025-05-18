@@ -9,7 +9,7 @@ name = "Hart Stone"
 discription = "It would be a Shame if the stone was split into 4 pieces,
 and you had to collect 4 of them to get 1 HP."
 id = "health_upgrade"
-spread = 0.0
+spread = 50.0
 game_play_time_stamp = 7
-amount = 1
+amount = 17
 metadata/_custom_type_script = "uid://cl7una4abykvr"
