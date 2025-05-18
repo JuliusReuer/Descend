@@ -3,7 +3,8 @@ extends Node2D
 
 var cur_room_id: String
 var other_room_id: String
-
+var is_in_range:bool
+var renderer:FloorRenderer
 @onready var sprite: Sprite2D = $Sprite2D
 
 
@@ -16,3 +17,23 @@ func set_floor(current_room: String, id: String) -> void:
 	var dir: int = DungeonLayoutNode.get_floor(current_room) - DungeonLayoutNode.get_floor(id)
 	if dir == 1:
 		sprite.frame = 0
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("enter") and is_in_range:
+		if sprite.frame == 0:
+			if other_room_id == "outside":
+				return #TODO: Load Outside
+			renderer.floor_up(DungeonLayoutNode.get_floor(other_room_id))
+		else:
+			renderer.teleport(DungeonLayoutNode.get_floor(other_room_id))
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is Player:
+		SignalBus.stairs_entered.emit()
+		is_in_range = true
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body is Player:
+		SignalBus.stairs_left.emit()
+		is_in_range = false

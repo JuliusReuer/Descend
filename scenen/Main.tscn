@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bjuskxpwiqy6g"]
+[gd_scene load_steps=46 format=3 uid="uid://bjuskxpwiqy6g"]
 
 [ext_resource type="Script" uid="uid://vq7oo3q2ebbp" path="res://scripts/Dungeon Generator/DungeonGenerator.gd" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://bg26mqenifput" path="res://scripts/Game/UI/debug.gd" id="1_uu6xs"]
@@ -34,6 +34,9 @@
 [ext_resource type="PackedScene" uid="uid://ccjric8mcvps6" path="res://scenen/Prefabs/player.tscn" id="29_rm16n"]
 [ext_resource type="Script" uid="uid://1rpieh3gndpm" path="res://scripts/Game/UI/collected_popup.gd" id="32_g6lye"]
 [ext_resource type="Script" uid="uid://c64rvj7mpyqwy" path="res://scripts/Game/UI/open_label.gd" id="32_jb876"]
+[ext_resource type="Script" uid="uid://dqs1jadnvw7q6" path="res://scripts/Game/UI/change_floor_label.gd" id="34_ha8kh"]
+[ext_resource type="Script" uid="uid://dr6kuxnki3dc4" path="res://scripts/Game/UI/keylabel.gd" id="34_r3r44"]
+[ext_resource type="Script" uid="uid://dnxo6r0c8rw8i" path="res://scripts/Game/UI/unlock_door_label.gd" id="35_c1u6d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oye8v"]
 texture = ExtResource("27_5mvff")
@@ -290,6 +293,77 @@ texture = SubResource("GradientTexture2D_oye8v")
 
 [node name="Ui" type="CanvasLayer" parent="Player/Camera2D"]
 
+[node name="Label" type="Label" parent="Player/Camera2D/Ui"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -23.0
+offset_right = 66.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press [E] to Open"
+label_settings = SubResource("LabelSettings_rm16n")
+script = ExtResource("32_jb876")
+
+[node name="Label2" type="Label" parent="Player/Camera2D/Ui"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -23.0
+offset_right = 66.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press [E] to Enter"
+label_settings = SubResource("LabelSettings_rm16n")
+script = ExtResource("34_ha8kh")
+
+[node name="Label3" type="Label" parent="Player/Camera2D/Ui"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -23.0
+offset_right = 66.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press [E] to Unlock"
+label_settings = SubResource("LabelSettings_rm16n")
+script = ExtResource("35_c1u6d")
+
+[node name="Key Display" type="MarginContainer" parent="Player/Camera2D/Ui"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -114.0
+offset_top = -123.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player/Camera2D/Ui/Key Display"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Player/Camera2D/Ui/Key Display/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Player/Camera2D/Ui/Key Display/HBoxContainer"]
+layout_mode = 2
+text = "0"
+script = ExtResource("34_r3r44")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Player/Camera2D/Ui"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -324,20 +398,5 @@ text = "You Collected a ..."
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Label" type="Label" parent="Player/Camera2D/Ui"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -66.0
-offset_top = -23.0
-offset_right = 66.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Press [E] to Open"
-label_settings = SubResource("LabelSettings_rm16n")
-script = ExtResource("32_jb876")
 
 [connection signal="value_changed" from="Player/Camera2D/Debug/SpinBox" to="Player/Camera2D/Debug/SpinBox" method="_on_value_changed"]

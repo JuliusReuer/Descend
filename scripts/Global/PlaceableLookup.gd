@@ -23,4 +23,4 @@ func get_placeable_name(id: String) -> String:
 	if _lookup[id] is Ability:
 		return "the " + _lookup[id].name
 
-	return _lookup[id].name
+	return "a " + _lookup[id].name

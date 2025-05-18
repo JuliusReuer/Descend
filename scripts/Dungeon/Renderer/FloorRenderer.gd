@@ -86,9 +86,11 @@ func floor_up(new_floor: int) -> void:
 	clear()
 	render()
 	var previous_room: String = layout.master_room_dict[layout.floor_entrys[dungeon_floor + 1]].uuid
-	var room_rect: Rect2 = layout.master_room_dict[layout.to_start_map[previous_room]].room_rect
-	var scaled_rect: Rect2i = Rect2i(room_rect)
-	camera.position = map.map_to_local(scaled_rect.get_center())
+	var room_id:String = layout.to_start_map[previous_room]
+	for stair in stairs_list:
+		if stair.cur_room_id == room_id:
+			Global.player.position = stair.position
+			break
 
 
 func add_door(rect: Rect2i, room_id: String, id: String, horizontal: bool) -> void:
@@ -114,12 +116,13 @@ func place_chest(cur_room_rect: Rect2i, room: DungeonLayoutNode):
 	if room.content.is_empty():
 		return
 	var chest = place_in_room(chest, cur_room_rect)
-	chest.set_content(room.content)
+	chest.set_content(room.content,room.uuid)
 
 
 func place_stairs(room: DungeonLayoutNode, connection: String):
 	var stairs = place_in_room(stairs, room.room_rect.grow(-3))
 	stairs.set_floor(room.uuid, connection)
+	stairs.renderer = self
 	stairs_list.append(stairs)
 
 
@@ -131,13 +134,13 @@ func render_room(room: String):
 	var room_node: DungeonLayoutNode = layout.master_room_dict[room]
 	var room_rect: Rect2i = Rect2i(room_node.room_rect).grow(-3)
 
-	var filter = func(conn: String):
-		var id = layout.master_room_dict[conn].room_id
+	var filter:Callable = func(conn: String)->bool:
+		var id:int = layout.master_room_dict[conn].room_id
 		return !connection_list.has(
 			"%d_%d" % [min(room_node.room_id, id), max(room_node.room_id, id)]
 		)
 
-	var connections = room_node.connections.duplicate().filter(filter)
+	var connections:Array[String] = room_node.connections.duplicate().filter(filter)
 	for connection in room_node.connections:
 		var id: int = layout.master_room_dict[connection].room_id
 		connection_list.set(

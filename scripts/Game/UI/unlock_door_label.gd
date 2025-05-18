@@ -3,8 +3,8 @@ extends Label
 var tween: Tween
 
 func _ready() -> void:
-	SignalBus.chest_entered.connect(show_label)
-	SignalBus.chest_left.connect(hide_label)
+	SignalBus.door_entered.connect(show_label)
+	SignalBus.door_left.connect(hide_label)
 	modulate = Color.TRANSPARENT
 
 

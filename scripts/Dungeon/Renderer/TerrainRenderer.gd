@@ -21,7 +21,7 @@ func define(terrain: Vector2i):
 	terrain_render[terrain].list = []
 
 
-func add_terrain(pos: Vector2i, terrain: Vector2i):
+func add_terrain(pos: Vector2i, terrain: Vector2i)->void:
 	if !terrain_render.has(terrain):
 		define(terrain)
 	terrain_render[terrain].list.append(pos)

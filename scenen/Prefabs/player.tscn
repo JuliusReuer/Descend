@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccjric8mcvps6"]
+[gd_scene load_steps=14 format=3 uid="uid://ccjric8mcvps6"]
 
 [ext_resource type="Script" uid="uid://c2uktotbm6x8k" path="res://scripts/Game/Objects/player.gd" id="1_1p55c"]
 [ext_resource type="Texture2D" uid="uid://xvocir7pkgeb" path="res://assets/textures/Adventurer.png" id="2_imcd2"]
@@ -7,6 +7,89 @@
 radius = 9.0
 height = 24.0
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_imcd2"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rcoux"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rcoux"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8gbkn"]
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tsfmu"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8gbkn"]
+states/Idle/node = SubResource("AnimationNodeAnimation_imcd2")
+states/Idle/position = Vector2(394, 62)
+states/Start/position = Vector2(127, 125)
+states/walk/node = SubResource("AnimationNodeAnimation_rcoux")
+states/walk/position = Vector2(407, 227)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_rcoux"), "Idle", "walk", SubResource("AnimationNodeStateMachineTransition_8gbkn"), "walk", "Idle", SubResource("AnimationNodeStateMachineTransition_tsfmu")]
+
+[sub_resource type="Animation" id="Animation_tsfmu"]
+resource_name = "Idle"
+length = 0.6
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 0]
+}
+
+[sub_resource type="Animation" id="Animation_ftkjv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_imcd2"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wxmak"]
+_data = {
+&"Idle": SubResource("Animation_tsfmu"),
+&"RESET": SubResource("Animation_ftkjv"),
+&"walk": SubResource("Animation_imcd2")
+}
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_1p55c")
 accel = 30.0
@@ -14,8 +97,20 @@ accel = 30.0
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_imcd2")
-hframes = 3
+hframes = 6
+vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_imcd2")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_8gbkn")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idle = false
+parameters/conditions/walk = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wxmak")
+}
