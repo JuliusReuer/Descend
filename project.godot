@@ -38,6 +38,7 @@ PlaceableLookup="*res://scripts/Global/PlaceableLookup.gd"
 DungeonCache="*res://scripts/Global/DungeonCache.gd"
 SceneManager="*res://addons/scene_manager/scene_manager.tscn"
 Scenes="*res://addons/scene_manager/scenes.gd"
+DebugScreenShot="*res://scripts/Global/DebugScreenShot.gd"
 
 [debug]
 
