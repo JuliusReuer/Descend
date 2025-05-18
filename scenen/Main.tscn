@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bjuskxpwiqy6g"]
+[gd_scene load_steps=55 format=3 uid="uid://bjuskxpwiqy6g"]
 
 [ext_resource type="Script" uid="uid://vq7oo3q2ebbp" path="res://scripts/Dungeon Generator/DungeonGenerator.gd" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://bg26mqenifput" path="res://scripts/Game/UI/debug.gd" id="1_uu6xs"]
@@ -40,6 +40,7 @@
 [ext_resource type="Script" uid="uid://dr6kuxnki3dc4" path="res://scripts/Game/UI/keylabel.gd" id="34_r3r44"]
 [ext_resource type="Script" uid="uid://dnxo6r0c8rw8i" path="res://scripts/Game/UI/unlock_door_label.gd" id="35_c1u6d"]
 [ext_resource type="Script" uid="uid://crruytwr6edwt" path="res://scenen/canvas_layer.gd" id="38_mgx16"]
+[ext_resource type="Texture2D" uid="uid://dhhfstxlespov" path="res://assets/textures/Key.png" id="38_v3sr5"]
 
 [sub_resource type="Resource" id="Resource_r2a4l"]
 script = ExtResource("3_ptyuh")
@@ -312,6 +313,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="Debug" type="CanvasLayer" parent="Player/Camera2D"]
 layer = 2
+visible = false
 
 [node name="SpinBox" type="SpinBox" parent="Player/Camera2D/Debug" node_paths=PackedStringArray("renderer")]
 anchors_preset = 2
@@ -403,6 +405,7 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Player/Camera2D/Ui/Key Display/HBoxContainer"]
 layout_mode = 2
+texture = ExtResource("38_v3sr5")
 
 [node name="Label" type="Label" parent="Player/Camera2D/Ui/Key Display/HBoxContainer"]
 layout_mode = 2
@@ -445,6 +448,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Player/Camera2D" node_paths=PackedStringArray("dungeon", "list", "progr")]
+visible = false
 script = ExtResource("38_mgx16")
 dungeon = NodePath("../../../Dungeon")
 list = NodePath("../../../Dungeon/DungeonGeneratorList")
