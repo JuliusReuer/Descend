@@ -26,3 +26,14 @@ Discover the Secret of the Spire
 ### Optional:
 Sell Trasure outside
 Buy Items Outside
+
+# TODO:
+
+- [ ] Add Inventory
+- [ ] Add Key UI
+- [ ] Add Door Functionality
+- [ ] Add Enemy
+- [ ] Remove Ability Checks (Doors)
+- [ ] Add Main Menu
+- [ ] Expand to 10 Floors
+- [ ] SFX
