@@ -30,11 +30,11 @@ Buy Items Outside
 # TODO:
 
 - [ ] Add Inventory
-- [ ] Add Key UI
+- [x] Add Key UI
 - [ ] Add Door Functionality
-- [ ] Add Stairs Functionality
+- [x] Add Stairs Functionality
 - [ ] Add Enemy
-- [ ] Remove Ability Checks (Doors)
+- [x] Remove Ability Checks (Doors)
 - [ ] Add Main Menu
 - [ ] Expand to 10 Floors
 - [ ] SFX
