@@ -5,7 +5,8 @@ extends CharacterBody2D
 @export var accel: float = 2
 @export var inventory: Dictionary[String,int] = {}
 
-@onready var sprite:Sprite2D = $Sprite2D
+@onready var sprite: Sprite2D = $Sprite2D
+
 
 func _ready() -> void:
 	Global.player = self
@@ -23,5 +24,12 @@ func _physics_process(delta: float) -> void:
 	velocity = lerp(velocity, player_input * speed, delta * accel)
 	move_and_slide()
 	if player_input.x != 0:
-		sprite.flip_h = !bool(int((sign(player_input.x)+1)/2))
-		sprite.position.x = sign(player_input.x)*-1
+		sprite.flip_h = !bool(int((sign(player_input.x) + 1) / 2))
+		sprite.position.x = sign(player_input.x) * -1
+
+
+func add_collectable(collectable: String) -> void:
+	if !inventory.has(collectable):
+		inventory.set(collectable, 0)
+	inventory[collectable] += 1
+	print(collectable)

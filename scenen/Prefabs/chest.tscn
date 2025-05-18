@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dk03nyf1mwc4e" path="res://assets/textures/Chests.png" id="1_twpm2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qdf3"]
-size = Vector2(64, 64)
+size = Vector2(80, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2gdn"]
 size = Vector2(32, 32)
@@ -29,3 +29,4 @@ debug_color = Color(0, 0.638679, 0.375343, 0.42)
 shape = SubResource("RectangleShape2D_j2gdn")
 
 [connection signal="body_entered" from="OpenRange" to="." method="_on_open_range_body_entered"]
+[connection signal="body_exited" from="OpenRange" to="." method="_on_open_range_body_exited"]

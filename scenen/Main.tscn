@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bjuskxpwiqy6g"]
+[gd_scene load_steps=43 format=3 uid="uid://bjuskxpwiqy6g"]
 
 [ext_resource type="Script" uid="uid://vq7oo3q2ebbp" path="res://scripts/Dungeon Generator/DungeonGenerator.gd" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://bg26mqenifput" path="res://scripts/Game/UI/debug.gd" id="1_uu6xs"]
@@ -30,7 +30,10 @@
 [ext_resource type="Texture2D" uid="uid://d2ew0uubrypmk" path="res://assets/textures/WallEdge.png" id="27_5mvff"]
 [ext_resource type="Texture2D" uid="uid://ctcex5mn61wnj" path="res://assets/textures/Wall.png" id="27_w3rk5"]
 [ext_resource type="Texture2D" uid="uid://ccg1elhg1s3nc" path="res://assets/textures/Ground.png" id="28_5mvff"]
+[ext_resource type="Texture2D" uid="uid://prtximi4r4vi" path="res://assets/textures/InvisibleWall.png" id="29_ii7yb"]
 [ext_resource type="PackedScene" uid="uid://ccjric8mcvps6" path="res://scenen/Prefabs/player.tscn" id="29_rm16n"]
+[ext_resource type="Script" uid="uid://1rpieh3gndpm" path="res://scripts/Game/UI/collected_popup.gd" id="32_g6lye"]
+[ext_resource type="Script" uid="uid://c64rvj7mpyqwy" path="res://scripts/Game/UI/open_label.gd" id="32_jb876"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oye8v"]
 texture = ExtResource("27_5mvff")
@@ -123,11 +126,20 @@ texture = ExtResource("28_5mvff")
 &"type": 0
 }
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ii7yb"]
+texture = ExtResource("29_ii7yb")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/metadata/_better_terrain = {
+&"type": 3
+}
+
 [sub_resource type="TileSet" id="TileSet_3b0ty"]
 physics_layer_0/collision_layer = 1
-sources/2 = SubResource("TileSetAtlasSource_5mvff")
-sources/1 = SubResource("TileSetAtlasSource_oye8v")
-sources/3 = SubResource("TileSetAtlasSource_40n85")
+sources/0 = SubResource("TileSetAtlasSource_oye8v")
+sources/1 = SubResource("TileSetAtlasSource_5mvff")
+sources/2 = SubResource("TileSetAtlasSource_40n85")
+sources/4 = SubResource("TileSetAtlasSource_ii7yb")
 metadata/_better_terrain = {
 &"decoration": ["Decoration", Color(0.411765, 0.411765, 0.411765, 1), 3, [], {
 &"path": "res://addons/better-terrain/icons/Decoration.svg"
@@ -158,6 +170,9 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0.504274)
 
+[sub_resource type="LabelSettings" id="LabelSettings_rm16n"]
+font_size = 20
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_uu6xs")
 
@@ -184,6 +199,7 @@ metadata/_custom_type_script = "uid://vq7oo3q2ebbp"
 [node name="DungeonGenerator3" type="Node2D" parent="Dungeon/DungeonGeneratorList"]
 script = ExtResource("1_glv2v")
 current_seed = 2
+debug_render_ids = true
 metadata/_custom_type_script = "uid://vq7oo3q2ebbp"
 
 [node name="DungeonGenerator4" type="Node2D" parent="Dungeon/DungeonGeneratorList"]
@@ -262,6 +278,7 @@ script = ExtResource("26_xrxkg")
 renderer = NodePath("../../../../Dungeon/FloorRenderer")
 
 [node name="Overlay" type="CanvasLayer" parent="Player/Camera2D"]
+visible = false
 
 [node name="TextureRect" type="TextureRect" parent="Player/Camera2D/Overlay"]
 anchors_preset = 15
@@ -270,5 +287,57 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_oye8v")
+
+[node name="Ui" type="CanvasLayer" parent="Player/Camera2D"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player/Camera2D/Ui"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("32_g6lye")
+
+[node name="Control" type="Control" parent="Player/Camera2D/Ui/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Player/Camera2D/Ui/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="PanelContainer" type="PanelContainer" parent="Player/Camera2D/Ui/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Player/Camera2D/Ui/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="ItemLabel" type="RichTextLabel" parent="Player/Camera2D/Ui/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "You Collected a ..."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Player/Camera2D/Ui"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -23.0
+offset_right = 66.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press [E] to Open"
+label_settings = SubResource("LabelSettings_rm16n")
+script = ExtResource("32_jb876")
 
 [connection signal="value_changed" from="Player/Camera2D/Debug/SpinBox" to="Player/Camera2D/Debug/SpinBox" method="_on_value_changed"]

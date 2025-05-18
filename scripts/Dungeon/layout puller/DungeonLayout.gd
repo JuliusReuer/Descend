@@ -25,21 +25,20 @@ func add(dungeon_floor: DungeonGenerator, floor_id: int, room_id: int):
 	new_node.room_rect = Rect2(room.get_position(), room.get_size())
 
 	if room._room_type == DungeonRoom.DungeonRoomType.END:
-		new_node.add_connection(0, floor_id + 1)
-		if master_room_dict.has(DungeonLayoutNode.ID_STR % [floor_id + 1, 0]):
-			master_room_dict[DungeonLayoutNode.ID_STR % [floor_id + 1, 0]].connections.append(
-				new_node.uuid
-			)
+		if floor_entrys.has(floor_id + 1):
+			master_room_dict[floor_entrys[floor_id + 1]].connections.append(new_node.uuid)
+			new_node.connections.append(floor_entrys[floor_id + 1])
 		else:
-			pending_connections.set(DungeonLayoutNode.ID_STR % [floor_id + 1, 0], new_node.uuid)
+			pending_connections.set("floor_" + str(floor_id + 1), new_node.uuid)
 
 	if room._room_type == DungeonRoom.DungeonRoomType.START:
 		floor_entrys.set(floor_id, new_node.uuid)
-
-	for pending in pending_connections:
-		if pending == new_node.uuid:
-			new_node.connections.append(pending_connections[pending])
-			pending_connections.erase(pending)
+		for pending in pending_connections:
+			if new_node.uuid.begins_with(pending):
+				new_node.connections.append(pending_connections[pending])
+				master_room_dict[pending_connections[pending]].connections.append(new_node.uuid)
+				pending_connections.erase(pending)
+				break
 
 	if len(new_node.connections) == 1:
 		if room._room_type == DungeonRoom.DungeonRoomType.ROOM:

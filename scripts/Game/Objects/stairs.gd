@@ -13,6 +13,6 @@ func set_floor(current_room: String, id: String) -> void:
 	if other_room_id == "outside":
 		sprite.frame = 0
 		return
-	var dir:int = DungeonLayoutNode.get_floor(current_room) - DungeonLayoutNode.get_floor(id)
+	var dir: int = DungeonLayoutNode.get_floor(current_room) - DungeonLayoutNode.get_floor(id)
 	if dir == 1:
 		sprite.frame = 0

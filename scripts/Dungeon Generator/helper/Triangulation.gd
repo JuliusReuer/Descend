@@ -5,11 +5,11 @@ var _vertices: Array[Vertex] = []
 
 
 func draw(renderer: Node2D) -> void:
-	var draw_color:Color = Color8(0, 255, 0)
+	var draw_color: Color = Color8(0, 255, 0)
 	for triangle in _triangles:
-		var v0:Vector2 = _vertices[triangle.first].vertex
-		var v1:Vector2 = _vertices[triangle.second].vertex
-		var v2:Vector2 = _vertices[triangle.third].vertex
+		var v0: Vector2 = _vertices[triangle.first].vertex
+		var v1: Vector2 = _vertices[triangle.second].vertex
+		var v2: Vector2 = _vertices[triangle.third].vertex
 
 		renderer.draw_line(v0, v1, draw_color)
 		renderer.draw_line(v0, v2, draw_color)
@@ -44,9 +44,9 @@ func _add_vertex(vertex: Vector2, dungeon_room_idx: int) -> int:
 	return len(_vertices) - 1
 
 
-func _add_triangle(first: int, second: int, third: int):
+func _add_triangle(first: int, second: int, third: int) -> void:
 	_triangles.push_back(Triangle.new(first, second, third))
 
 
-func _remove_triangle(index: int):
+func _remove_triangle(index: int) -> void:
 	_triangles.remove_at(index)
