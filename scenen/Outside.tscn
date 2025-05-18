@@ -154,7 +154,7 @@ position = Vector2(288, 48)
 shape = SubResource("RectangleShape2D_wddqn")
 
 [node name="Player" parent="." instance=ExtResource("2_tge6b")]
-position = Vector2(288, 342)
+position = Vector2(287, 317)
 scale = Vector2(0.5, 0.5)
 speed = 100.0
 
